@@ -1,18 +1,14 @@
+using ERS.Api.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder
+    .AddApplicationServices()
+    .AddDatabase()
+    .AddDependencyInjection();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+await app.UseApplicationMiddleware();
 
-app.UseHttpsRedirection();
-app.MapControllers();
-
-app.Run();
+await app.RunAsync();
