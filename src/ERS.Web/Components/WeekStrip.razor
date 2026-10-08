@@ -1,0 +1,39 @@
+<div class="grid grid-cols-7">
+    @foreach (var day in Days)
+    {
+        <button class="relative flex flex-col items-center py-3
+                       hover:bg-slate-50 dark:hover:bg-zinc-900/60
+                       transition-colors
+                       @(day.IsSelected ? "bg-blue-50 dark:bg-blue-950/30" : "")">
+            <span class="text-xs sm:text-[10px] font-medium text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
+                @day.Short
+            </span>
+            <span class="text-lg font-semibold mt-0.5 tabular-nums @(day.IsSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-zinc-300")">
+                @day.Number
+            </span>
+            @if (day.HasReplacements)
+            {
+                <span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+            }
+            @if (day.IsSelected)
+            {
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-blue-500"></span>
+            }
+        </button>
+    }
+</div>
+
+@code {
+    private record DayInfo(string Short, int Number, bool IsSelected, bool HasReplacements);
+
+    private List<DayInfo> Days { get; } = new()
+    {
+        new("Пн", 13, false, false),
+        new("Вт", 14, true,  true),
+        new("Ср", 15, false, false),
+        new("Чт", 16, false, true),
+        new("Пт", 17, false, false),
+        new("Сб", 18, false, false),
+        new("Вс", 19, false, false),
+    };
+}

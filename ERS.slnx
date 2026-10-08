@@ -4,6 +4,7 @@
     <Project Path="src/ERS.Application/ERS.Application.csproj" />
     <Project Path="src/ERS.Domain/ERS.Domain.csproj" />
     <Project Path="src/ERS.Infrastructure/ERS.Infrastructure.csproj" />
+    <Project Path="src/ERS.Web/ERS.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/ERS.Domain.Tests/ERS.Domain.Tests.csproj" />

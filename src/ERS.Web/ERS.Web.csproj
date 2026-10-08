@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <TailwindVersion>4</TailwindVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Target Name="BuildTailwind" BeforeTargets="Build">
+    <Exec Command=".\tailwindcss.exe -i .\wwwroot\css\app.css -o .\wwwroot\css\app.min.css --minify" />
+  </Target>
+
+  <Target Name="WatchTailwind" AfterTargets="Watch" Condition="'$(Configuration)' == 'Debug'">
+    <Exec Command=".\tailwindcss.exe -i .\wwwroot\css\app.css -o .\wwwroot\css\app.min.css --watch" />
+  </Target>
+
+</Project>
