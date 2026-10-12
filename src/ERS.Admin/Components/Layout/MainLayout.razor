@@ -1,11 +1,15 @@
 ﻿@inherits LayoutComponentBase
+@implements IDisposable
+@inject Localizer L
 
-<div class="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 flex transition-colors duration-300">
+<div @key="L.Current"
+     class="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 flex transition-colors duration-300">
 
     @* Сайдбар *@
     <aside class="w-60 shrink-0 border-r border-slate-200 dark:border-zinc-900
                   bg-white dark:bg-zinc-950 flex flex-col transition-colors">
 
+        @* Логотип *@
         <div class="h-14 flex items-center gap-2.5 px-4 border-b border-slate-200 dark:border-zinc-900">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-4 h-4 text-white">
@@ -13,27 +17,37 @@
                 </svg>
             </div>
             <div class="min-w-0">
-                <h1 class="text-sm font-semibold leading-tight">ERS Admin</h1>
-                <p class="text-[10px] text-slate-500 dark:text-zinc-500 leading-tight">Панель диспетчера</p>
+                <h1 class="text-sm font-semibold leading-tight">@L["layout.brand"]</h1>
+                <p class="text-[10px] text-slate-500 dark:text-zinc-500 leading-tight">@L["layout.brandSubtitle"]</p>
             </div>
         </div>
 
+        @* Навигация *@
         <NavMenu />
 
-        @* Низ: тема + пользователь *@
+        @* Низ: язык + тема + пользователь *@
         <div class="border-t border-slate-200 dark:border-zinc-900 p-3 space-y-2">
+
+            @* Язык *@
             <div class="flex items-center justify-between px-2">
-                <span class="text-xs text-slate-500 dark:text-zinc-500">Тема</span>
+                <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.language"]</span>
+                <LanguageSwitcher />
+            </div>
+
+            @* Тема *@
+            <div class="flex items-center justify-between px-2">
+                <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.theme"]</span>
                 <ThemeToggle />
             </div>
 
+            @* Пользователь *@
             <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg
                         hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer">
                 <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-[10px] font-semibold text-white">
                     ДС
                 </div>
                 <div class="min-w-0 flex-1">
-                    <p class="text-xs font-medium truncate">Диспетчер</p>
+                    <p class="text-xs font-medium truncate">@L["layout.dispatcher"]</p>
                     <p class="text-[10px] text-slate-500 dark:text-zinc-500 truncate">dispatcher@college.ua</p>
                 </div>
             </div>
@@ -44,3 +58,20 @@
         @Body
     </main>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        L.OnChange += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        L.OnChange -= OnLanguageChanged;
+    }
+}

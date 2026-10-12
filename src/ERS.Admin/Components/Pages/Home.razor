@@ -1,72 +1,130 @@
 ﻿@page "/"
+@inject Localizer L
 
-<PageTitle>ERS Admin — Группы</PageTitle>
+<PageTitle>@L["home.title"]</PageTitle>
 
-<div class="p-8">
+<div class="p-6 lg:p-8">
+
     @* Заголовок *@
-    <div class="mb-6 flex items-end justify-between gap-4">
+    <div class="mb-6 flex items-end justify-between gap-4 flex-wrap">
         <div>
-            <h1 class="text-2xl font-semibold tracking-tight">Группы</h1>
-            <p class="text-sm text-zinc-500 mt-1">Все активные группы колледжа</p>
+            <h1 class="text-2xl font-semibold tracking-tight">@L["home.title"]</h1>
+            <p class="text-sm text-slate-500 dark:text-zinc-500 mt-1">
+                @L["home.subtitle"]
+            </p>
         </div>
 
         <div class="flex items-center gap-2">
-            <button class="px-3 py-2 rounded-lg text-sm font-medium
-                           bg-zinc-900 border border-zinc-800 text-zinc-300
-                           hover:bg-zinc-800 transition-colors">
-                Фильтр
-            </button>
-            <button class="px-3 py-2 rounded-lg text-sm font-medium
-                           bg-blue-500 text-white
-                           hover:bg-blue-600 transition-colors
-                           shadow-lg shadow-blue-500/20">
-                + Добавить
-            </button>
+            @* Поиск *@
+            <div class="relative">
+                <input type="text"
+                       @bind="search"
+                       @bind:event="oninput"
+                       placeholder="@L["home.searchPlaceholder"]"
+                       class="w-64 px-3 py-2 pl-9 rounded-lg text-sm
+                              bg-white dark:bg-zinc-900
+                              border border-slate-200 dark:border-zinc-800
+                              text-slate-900 dark:text-zinc-100
+                              placeholder-slate-400 dark:placeholder-zinc-500
+                              focus:outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20
+                              transition-colors" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                     class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-zinc-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </div>
+
+            @* Добавить группу — заблокировано *@
+            <div title="@L["common.inDevelopment"]"
+                 class="flex items-center gap-2 px-3.5 h-9 rounded-lg
+                        text-sm font-medium
+                        bg-slate-100 dark:bg-zinc-900/60
+                        border border-slate-200 dark:border-zinc-800
+                        text-slate-400 dark:text-zinc-600
+                        cursor-not-allowed select-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                @L["home.addGroup"]
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+            </div>
         </div>
     </div>
 
     @* Сетка групп *@
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        @foreach (var g in Groups)
-        {
-            <a href="/group/@g.Id"
-               class="text-left p-4 rounded-xl bg-zinc-900/60 border border-zinc-800
-                      hover:border-zinc-700 hover:bg-zinc-900
-                      hover:-translate-y-0.5 transition-all duration-200 group block">
-                <div class="flex items-start justify-between mb-3">
-                    <div class="w-9 h-9 rounded-lg bg-zinc-800 flex items-center justify-center
-                                text-xs font-bold text-zinc-400
-                                group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">
-                        @g.DisplayName
+    @if (FilteredGroups.Count == 0)
+    {
+        <div class="rounded-xl border border-dashed border-slate-300 dark:border-zinc-800
+                    bg-white dark:bg-zinc-900/20 p-12 text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-slate-100 dark:bg-zinc-800
+                        flex items-center justify-center mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-400 dark:text-zinc-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 dark:text-zinc-100 mb-1">
+                @L["home.noResults"]
+            </h3>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            @foreach (var g in FilteredGroups)
+            {
+                <a href="/group/@g.Id"
+                   class="text-left p-4 rounded-xl bg-white dark:bg-zinc-900/60
+                          border border-slate-200 dark:border-zinc-800
+                          hover:border-slate-300 dark:hover:border-zinc-700
+                          hover:bg-slate-50 dark:hover:bg-zinc-900
+                          hover:-translate-y-0.5 transition-all duration-200 group block">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-zinc-800 flex items-center justify-center
+                                    text-xs font-bold text-slate-500 dark:text-zinc-400
+                                    group-hover:bg-blue-500/15 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            @g.DisplayName
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-400 dark:text-zinc-600 tabular-nums">
+                            @g.Course
+                        </span>
                     </div>
-                    <span class="text-[10px] font-mono text-zinc-600 tabular-nums">
-                        @g.Course курс
-                    </span>
-                </div>
 
-                <p class="text-sm font-medium text-zinc-100">@g.DisplayName</p>
-                <p class="text-[11px] text-zinc-500 mt-0.5">@g.Specialty</p>
-            </a>
-        }
-    </div>
+                    <p class="text-sm font-medium text-slate-900 dark:text-zinc-100 truncate">@g.DisplayName</p>
+                    <p class="text-[11px] text-slate-500 dark:text-zinc-500 mt-0.5 truncate">@g.Specialty</p>
+                </a>
+            }
+        </div>
+    }
 </div>
 
 @code {
     private sealed record GroupMock(string Id, string DisplayName, int Course, string Specialty);
 
+    private string search = "";
+
     private List<GroupMock> Groups { get; } = new()
     {
-        new("k21", "К-21", 2, "Компьютерные системы"),
-        new("k22", "К-22", 2, "Компьютерные системы"),
-        new("b31", "Б-31", 3, "Бухгалтерский учёт"),
-        new("b32", "Б-32", 3, "Бухгалтерский учёт"),
-        new("p41", "П-41", 4, "Программирование"),
-        new("ag11", "Аг-11", 1, "Агрономия"),
-        new("ag21", "Аг-21", 2, "Агрономия"),
+        new("k21", "К-21", 2, "Комп'ютерні системи"),
+        new("k22", "К-22", 2, "Комп'ютерні системи"),
+        new("k41", "К-41", 4, "Комп'ютерні системи"),
+        new("b31", "Б-31", 3, "Бухгалтерський облік"),
+        new("b32", "Б-32", 3, "Бухгалтерський облік"),
+        new("p41", "П-41", 4, "Програмування"),
+        new("ag11", "Аг-11", 1, "Агрономія"),
+        new("ag21", "Аг-21", 2, "Агрономія"),
         new("d11", "Д-11", 1, "Дизайн"),
         new("d21", "Д-21", 2, "Дизайн"),
-        new("e31", "Е-31", 3, "Экономика"),
-        new("e32", "Е-32", 3, "Экономика"),
-        new("k41", "К-41", 4, "Компьютерные системы"),
+        new("e31", "Е-31", 3, "Економіка"),
+        new("e32", "Е-32", 3, "Економіка"),
     };
+
+    private List<GroupMock> FilteredGroups =>
+        string.IsNullOrWhiteSpace(search)
+            ? Groups
+            : Groups.Where(g =>
+                g.DisplayName.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || g.Specialty.Contains(search, StringComparison.OrdinalIgnoreCase))
+              .ToList();
 }

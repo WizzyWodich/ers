@@ -1,19 +1,18 @@
 @page "/group/{Id}"
 @using ERS.Admin.Components.Group
-@using ERS.Admin.Components.Override
+@inject Localizer L
 
-<PageTitle>ERS Admin — Расписание</PageTitle>
+<PageTitle>@L["nav.schedule"] — @currentGroup.DisplayName</PageTitle>
 
 <div class="p-6 lg:p-8 max-w-7xl">
 
     @* Хлебные крошки *@
     <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-zinc-500 mb-4">
-        <a href="/" class="hover:text-slate-900 dark:hover:text-zinc-100 transition-colors">Расписание</a>
+        <a href="/" class="hover:text-slate-900 dark:hover:text-zinc-100 transition-colors">@L["nav.schedule"]</a>
         <span>/</span>
         <span class="text-slate-900 dark:text-zinc-100 font-medium">@currentGroup.DisplayName</span>
     </div>
 
-    @* Grid: левая колонка + правая колонка *@
     <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
 
         @* === ЛЕВАЯ КОЛОНКА === *@
@@ -23,39 +22,39 @@
             <div class="flex items-center gap-3 flex-wrap mb-5">
                 <GroupSwitcher Current="currentGroup" Groups="Groups" />
 
-                <DateNavigator DayOfWeek="Вторник"
-                               DateLabel="14 октября 2025"
+                <DateNavigator DayOfWeek="@DayOfWeekLabel"
+                               DateLabel="@DateLabel"
                                OnPrev="PrevDay"
                                OnToday="GoToday"
                                OnNext="NextDay" />
 
-               @* + Новая замена *@
+                @* + Новая замена *@
                 <button @onclick="() => showOverrideModal = true"
                         class="ml-auto flex items-center gap-2 px-3.5 h-9 rounded-lg
-                            bg-blue-500 hover:bg-blue-600
-                            text-white text-sm font-medium
-                            shadow-lg shadow-blue-500/20
-                            transition-colors">
+                               bg-blue-500 hover:bg-blue-600
+                               text-white text-sm font-medium
+                               shadow-lg shadow-blue-500/20
+                               transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    Замена
+                    @L["group.createOverride"]
                 </button>
 
-                @* Кнопка публикации черновиков этой группы *@
+                @* Publish *@
                 @if (DraftCountForGroup > 0)
                 {
                     <button @onclick="PublishGroupDrafts"
-                            title="Замены на 14 октября: 3 замены"
+                            title="@L.Format("publish.title", DraftCountForGroup)"
                             class="flex items-center gap-2 px-3.5 h-9 rounded-lg
-                                bg-amber-500 hover:bg-amber-600
-                                text-white text-sm font-medium
-                                shadow-lg shadow-amber-500/20
-                                transition-colors">
+                                   bg-amber-500 hover:bg-amber-600
+                                   text-white text-sm font-medium
+                                   shadow-lg shadow-amber-500/20
+                                   transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                         </svg>
-                        Опубликовать (@DraftCountForGroup)
+                        @L.Format("publish.button", DraftCountForGroup)
                     </button>
                 }
             </div>
@@ -65,11 +64,11 @@
                 <CalendarBlock ShowMonth="showMonth" OnToggle="ToggleCalendar" OnDayClick="SelectDate" />
             </div>
 
-            @* Таблица *@
+            @* Таблица расписания *@
             <ScheduleTable>
                 <ScheduleRow Start="08:00" End="09:20"
-                             Subject="Программирование"
-                             Teacher="Петров И.С."
+                             Subject="Програмування"
+                             Teacher="Петров І.С."
                              Room="301"
                              Status="Normal" />
 
@@ -77,8 +76,8 @@
 
                 <ScheduleRow Start="09:30" End="10:50"
                              Subject="Математика"
-                             Teacher="Сидоров А.В."
-                             OldTeacher="Петров И.С."
+                             Teacher="Сидоров О.В."
+                             OldTeacher="Петров І.С."
                              Room="302"
                              Status="Substituted"
                              IsDraft="true" />
@@ -86,41 +85,41 @@
                 <BreakRow Time="10:50–11:40" Duration="50" Type="Big" />
 
                 <ScheduleRow Start="11:40" End="13:00"
-                             Subject="Физкультура"
-                             Teacher="Иванов П.П."
+                             Subject="Фізкультура"
+                             Teacher="Іванов П.П."
                              Room="Спортзал"
                              Status="Normal"
                              IsDraft="true" />
 
                 <ScheduleRow Start="13:10" End="14:30"
-                             Subject="История"
-                             Teacher="Кузнецова М.И."
+                             Subject="Історія"
+                             Teacher="Кузнєцова М.І."
                              Room="305"
                              Status="Cancelled"
                              IsDraft="true" />
             </ScheduleTable>
         </div>
 
-        @* === ПРАВАЯ КОЛОНКА (сайдбар) === *@
+        @* === ПРАВАЯ КОЛОНКА === *@
         <aside class="hidden xl:block space-y-4">
 
             @* О группе *@
             <div class="rounded-xl border border-slate-200 dark:border-zinc-800
                         bg-white dark:bg-zinc-900/40 p-4">
                 <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-3">
-                    О группе
+                    @L["group.about"]
                 </h3>
                 <div class="space-y-2.5">
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Специальность</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.specialty"]</span>
                         <span class="text-xs font-medium text-right truncate">@currentGroup.Specialty</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Курс</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.course"]</span>
                         <span class="text-xs font-medium">2</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Студентов</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.students"]</span>
                         <span class="text-xs font-medium tabular-nums">24</span>
                     </div>
                 </div>
@@ -130,30 +129,30 @@
             <div class="rounded-xl border border-slate-200 dark:border-zinc-800
                         bg-white dark:bg-zinc-900/40 p-4">
                 <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-3">
-                    Сегодня
+                    @L["group.today"]
                 </h3>
                 <div class="space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Пар</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.pairs"]</span>
                         <span class="text-sm font-semibold tabular-nums">4</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Начало</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.start"]</span>
                         <span class="text-sm font-semibold font-mono tabular-nums">08:00</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Конец</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.end"]</span>
                         <span class="text-sm font-semibold font-mono tabular-nums">14:30</span>
                     </div>
 
                     <div class="border-t border-slate-100 dark:border-zinc-800 pt-2.5 mt-1"></div>
 
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Замен</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.substitutions"]</span>
                         <span class="text-sm font-semibold tabular-nums text-amber-600 dark:text-amber-400">1</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-slate-500 dark:text-zinc-400">Отменено</span>
+                        <span class="text-xs text-slate-500 dark:text-zinc-400">@L["group.cancelled"]</span>
                         <span class="text-sm font-semibold tabular-nums text-red-600 dark:text-red-400">1</span>
                     </div>
                 </div>
@@ -163,7 +162,7 @@
             <div class="rounded-xl border border-slate-200 dark:border-zinc-800
                         bg-white dark:bg-zinc-900/40 p-4">
                 <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-3">
-                    Куратор
+                    @L["group.curator"]
                 </h3>
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-purple-600
@@ -171,7 +170,7 @@
                         КМ
                     </div>
                     <div class="min-w-0">
-                        <p class="text-sm font-medium truncate">Кузнецова М.И.</p>
+                        <p class="text-sm font-medium truncate">Кузнєцова М.І.</p>
                         <p class="text-[11px] text-slate-500 dark:text-zinc-500 truncate">kuznetsova@college.ua</p>
                     </div>
                 </div>
@@ -180,53 +179,58 @@
             @* Быстрые действия *@
             <div class="rounded-xl border border-slate-200 dark:border-zinc-800
                         bg-white dark:bg-zinc-900/40 p-2">
-                <button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left
+                <button @onclick="() => showOverrideModal = true"
+                        class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left
                                hover:bg-slate-50 dark:hover:bg-zinc-800/60 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4 text-slate-400 dark:text-zinc-500 shrink-0">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    Создать замену
+                    @L["group.createOverride"]
                 </button>
                 <button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left
                                hover:bg-slate-50 dark:hover:bg-zinc-800/60 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4 text-slate-400 dark:text-zinc-500 shrink-0">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Z" />
                     </svg>
-                    Печать
+                    @L["group.print"]
                 </button>
             </div>
         </aside>
     </div>
-
-        @* Модалка создания замены *@
-    <OverrideModal IsOpen="showOverrideModal"
-                OnClose="() => showOverrideModal = false"
-                PreGroupId="@Id"
-                PreDate="@DateOnly.FromDateTime(DateTime.Today)" />
 </div>
+
+<OverrideModal IsOpen="showOverrideModal"
+               OnClose="() => showOverrideModal = false"
+               PreGroupId="@Id" />
 
 @code {
     [Parameter] public string Id { get; set; } = "";
 
     private bool showMonth;
+    private bool showOverrideModal;
 
     private GroupSwitcher.GroupItem currentGroup = default!;
 
+    private DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
+
     private List<GroupSwitcher.GroupItem> Groups { get; } = new()
     {
-        new("k21", "К-21", "Компьютерные системы"),
-        new("k22", "К-22", "Компьютерные системы"),
-        new("k41", "К-41", "Компьютерные системы"),
-        new("b31", "Б-31", "Бухгалтерский учёт"),
-        new("b32", "Б-32", "Бухгалтерский учёт"),
-        new("p41", "П-41", "Программирование"),
-        new("ag11", "Аг-11", "Агрономия"),
-        new("ag21", "Аг-21", "Агрономия"),
+        new("k21", "К-21", "Комп'ютерні системи"),
+        new("k22", "К-22", "Комп'ютерні системи"),
+        new("k41", "К-41", "Комп'ютерні системи"),
+        new("b31", "Б-31", "Бухгалтерський облік"),
+        new("b32", "Б-32", "Бухгалтерський облік"),
+        new("p41", "П-41", "Програмування"),
+        new("ag11", "Аг-11", "Агрономія"),
+        new("ag21", "Аг-21", "Агрономія"),
         new("d11", "Д-11", "Дизайн"),
         new("d21", "Д-21", "Дизайн"),
-        new("e31", "Е-31", "Экономика"),
-        new("e32", "Е-32", "Экономика"),
+        new("e31", "Е-31", "Економіка"),
+        new("e32", "Е-32", "Економіка"),
     };
+
+    private string DayOfWeekLabel => L.DayOfWeekFull(currentDate.DayOfWeek);
+    private string DateLabel => $"{currentDate.Day} {L.MonthName(currentDate.Month)} {currentDate.Year}";
 
     protected override void OnParametersSet()
     {
@@ -236,11 +240,10 @@
     private void ToggleCalendar(bool month) => showMonth = month;
 
     private int DraftCountForGroup => 3;
-    private bool showOverrideModal;
 
     private void PublishGroupDrafts() { }
-    private void SelectDate(DateOnly date) { }
-    private void PrevDay() { }
-    private void GoToday() { }
-    private void NextDay() { }
+    private void SelectDate(DateOnly date) { currentDate = date; }
+    private void PrevDay() { currentDate = currentDate.AddDays(-1); }
+    private void GoToday() { currentDate = DateOnly.FromDateTime(DateTime.Today); }
+    private void NextDay() { currentDate = currentDate.AddDays(1); }
 }

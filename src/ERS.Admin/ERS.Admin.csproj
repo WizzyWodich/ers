@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERS.Domain\ERS.Domain.csproj" />
+    <ProjectReference Include="..\ERS.Localization\ERS.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
   </ItemGroup>
 
   <Target Name="BuildTailwind" BeforeTargets="Build">

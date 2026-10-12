@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.0" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ERS.Localization\ERS.Localization.csproj" />
+  </ItemGroup>
+
   <Target Name="BuildTailwind" BeforeTargets="Build">
     <Exec Command=".\tailwindcss.exe -i .\wwwroot\css\app.css -o .\wwwroot\css\app.min.css --minify" />
   </Target>

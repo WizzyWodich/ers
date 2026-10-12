@@ -1,0 +1,39 @@
+@inject Localizer L
+@inject IJSRuntime JS
+
+<div class="inline-flex rounded-lg border border-slate-200 dark:border-zinc-800 p-0.5 bg-slate-50 dark:bg-zinc-950">
+    <button @onclick="() => SetLang(Language.En)"
+            class="px-2 py-1 rounded-md text-[11px] font-semibold transition-all duration-200
+                   @(L.Current == Language.En
+                       ? "bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-sm"
+                       : "text-slate-500 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200")">
+        EN
+    </button>
+    <button @onclick="() => SetLang(Language.Uk)"
+            class="px-2 py-1 rounded-md text-[11px] font-semibold transition-all duration-200
+                   @(L.Current == Language.Uk
+                       ? "bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-sm"
+                       : "text-slate-500 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200")">
+        UK
+    </button>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        var stored = await JS.InvokeAsync<string?>("localStorage.getItem", "ers-lang");
+        if (!string.IsNullOrEmpty(stored))
+        {
+            L.SetLanguage(Localizer.ParseLanguage(stored));
+            StateHasChanged();
+        }
+    }
+
+    private async Task SetLang(Language lang)
+    {
+        L.SetLanguage(lang);
+        await JS.InvokeVoidAsync("localStorage.setItem", "ers-lang", Localizer.GetLanguageCode(lang));
+    }
+}

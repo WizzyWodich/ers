@@ -1,3 +1,5 @@
+@inject Localizer L
+
 <div class="flex items-baseline gap-2">
     <span class="text-lg font-semibold">@DayOfWeek</span>
     <span class="text-sm text-slate-500 dark:text-zinc-500">@DateLabel</span>
@@ -5,6 +7,7 @@
 
 <div class="ml-auto flex items-center gap-1">
     <button @onclick="() => OnPrev.InvokeAsync()"
+            title="@L["nav.prev"]"
             class="w-9 h-9 rounded-lg flex items-center justify-center
                    bg-white dark:bg-zinc-900
                    border border-slate-200 dark:border-zinc-800
@@ -22,10 +25,11 @@
                    border border-slate-200 dark:border-zinc-800
                    text-slate-700 dark:text-zinc-300
                    hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors">
-        Сегодня
+        @L["nav.today"]
     </button>
 
     <button @onclick="() => OnNext.InvokeAsync()"
+            title="@L["nav.next"]"
             class="w-9 h-9 rounded-lg flex items-center justify-center
                    bg-white dark:bg-zinc-900
                    border border-slate-200 dark:border-zinc-800

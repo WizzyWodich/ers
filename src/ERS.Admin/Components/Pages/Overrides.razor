@@ -2,7 +2,7 @@
 
 <PageTitle>ERS Admin — Замены</PageTitle>
 
-<div class="p-6 lg:p-8 max-w-6xl">
+<div class="p-6 lg:p-8">
 
     @* Заголовок *@
     <div class="mb-6 flex items-end justify-between gap-4 flex-wrap">
@@ -13,23 +13,42 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-2">
-            @* Опубликовать всё *@
-            @if (TotalDrafts > 0)
-            {
-                <button @onclick="PublishAll"
-                        class="flex items-center gap-2 px-3.5 h-9 rounded-lg
-                               bg-amber-500 hover:bg-amber-600
-                               text-white text-sm font-medium
-                               shadow-lg shadow-amber-500/20
-                               transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
-                    </svg>
-                    Опубликовать всё (@TotalDrafts)
-                </button>
-            }
+        <div class="flex items-center gap-2 flex-wrap">
+            @* Экспорт — заблокировано *@
+            <div title="В разработке"
+                 class="flex items-center gap-2 px-3.5 h-9 rounded-lg
+                        text-sm font-medium
+                        bg-slate-100 dark:bg-zinc-900/60
+                        border border-slate-200 dark:border-zinc-800
+                        text-slate-400 dark:text-zinc-600
+                        cursor-not-allowed select-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                Экспорт
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+            </div>
 
+            @* Шаблон — заблокировано *@
+            <div title="В разработке"
+                 class="flex items-center gap-2 px-3.5 h-9 rounded-lg
+                        text-sm font-medium
+                        bg-slate-100 dark:bg-zinc-900/60
+                        border border-slate-200 dark:border-zinc-800
+                        text-slate-400 dark:text-zinc-600
+                        cursor-not-allowed select-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                </svg>
+                Шаблон
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+            </div>
+
+            @* Новый пакет — активная *@
             <button class="flex items-center gap-2 px-3.5 h-9 rounded-lg
                            bg-blue-500 hover:bg-blue-600
                            text-white text-sm font-medium
@@ -61,105 +80,35 @@
         }
     </div>
 
-    @* Список пакетов *@
-    <div class="space-y-3">
-        @foreach (var batch in FilteredBatches)
-        {
-            <div class="rounded-xl border border-slate-200 dark:border-zinc-800
-                        bg-white dark:bg-zinc-900/40 overflow-hidden">
-
-                @* Шапка пакета *@
-                <div class="flex items-start justify-between gap-4 p-4">
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-2 flex-wrap mb-1">
-                            <h3 class="text-base font-semibold truncate">@batch.Title</h3>
-
-                            @if (batch.PublishedAt.HasValue)
-                            {
-                                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded
-                                             bg-emerald-500/10 text-emerald-600 dark:text-emerald-400
-                                             text-[10px] font-medium">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                    </svg>
-                                    Опубликовано
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded
-                                             bg-amber-500/10 text-amber-600 dark:text-amber-400
-                                             text-[10px] font-medium">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                                    Черновик
-                                </span>
-                            }
-                        </div>
-
-                        <p class="text-sm text-slate-500 dark:text-zinc-500">
-                            <span class="tabular-nums font-medium">@batch.Count</span> замен
-                            · создано @batch.CreatedAt
-                            @if (batch.PublishedAt.HasValue)
-                            {
-                                <span> · опубликовано @batch.PublishedAt.Value.ToString("dd.MM в HH:mm")</span>
-                            }
-                        </p>
-
-                        @if (!string.IsNullOrEmpty(batch.Note))
-                        {
-                            <p class="text-xs text-slate-400 dark:text-zinc-600 mt-1 italic">
-                                @batch.Note
-                            </p>
-                        }
-                    </div>
-
-                    @* Кнопки действий *@
-                    <div class="flex items-center gap-1 shrink-0">
-                        <button class="w-8 h-8 rounded-lg flex items-center justify-center
-                                       text-slate-400 dark:text-zinc-500
-                                       hover:bg-slate-100 dark:hover:bg-zinc-800
-                                       hover:text-slate-900 dark:hover:text-zinc-100 transition-colors"
-                                title="Развернуть">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                            </svg>
-                        </button>
-
-                        @if (!batch.PublishedAt.HasValue)
-                        {
-                            <button @onclick="() => PublishBatch(batch)"
-                                    class="px-3 h-8 rounded-lg text-xs font-medium
-                                           bg-amber-500 hover:bg-amber-600
-                                           text-white
-                                           shadow-lg shadow-amber-500/20
-                                           transition-colors">
-                                Опубликовать
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="px-3 h-8 rounded-lg text-xs font-medium
-                                           text-slate-500 dark:text-zinc-400
-                                           hover:bg-slate-100 dark:hover:bg-zinc-800
-                                           transition-colors">
-                                Откатить
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
-        }
+    @* Пустое состояние *@
+    <div class="rounded-xl border border-dashed border-slate-300 dark:border-zinc-800
+                bg-white dark:bg-zinc-900/20 p-12 text-center">
+        <div class="w-12 h-12 mx-auto rounded-xl bg-slate-100 dark:bg-zinc-800
+                    flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-400 dark:text-zinc-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+        </div>
+        <h3 class="text-base font-semibold text-slate-900 dark:text-zinc-100 mb-1">
+            Пока нет замен
+        </h3>
+        <p class="text-sm text-slate-500 dark:text-zinc-500 mb-5 max-w-md mx-auto">
+            Здесь появятся все пакеты замен — черновики и опубликованные.
+        </p>
+        <button class="inline-flex items-center gap-2 px-3.5 h-9 rounded-lg
+                       bg-blue-500 hover:bg-blue-600
+                       text-white text-sm font-medium
+                       shadow-lg shadow-blue-500/20
+                       transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Новый пакет
+        </button>
     </div>
 </div>
 
 @code {
-    private sealed record BatchMock(
-        string Title,
-        int Count,
-        string CreatedAt,
-        DateTime? PublishedAt,
-        string? Note);
-
     private sealed record FilterItem(string Key, string Label, int Count);
 
     private string currentFilter = "all";
@@ -167,32 +116,7 @@
     private List<FilterItem> Filters { get; } = new()
     {
         new("all", "Все", 0),
-        new("draft", "Черновики", 2),
+        new("draft", "Черновики", 0),
         new("published", "Опубликованные", 0),
     };
-
-    private List<BatchMock> Batches { get; } = new()
-    {
-        new("Зміни з 14 по 18 квітня 2025", 47, "12.04 в 19:32", null,
-            "Загружено из документа деканата"),
-        new("Срочные замены 12.04", 3, "12.04 в 14:15", DateTime.Parse("2025-04-12T14:17:00"),
-            null),
-        new("Замены 11.04", 8, "11.04 в 08:02", DateTime.Parse("2025-04-11T08:05:00"),
-            null),
-        new("Замены 10.04", 5, "10.04 в 09:45", DateTime.Parse("2025-04-10T09:47:00"),
-            null),
-    };
-
-    private int TotalDrafts => 50; // мок
-
-    private List<BatchMock> FilteredBatches =>
-        currentFilter switch
-        {
-            "draft" => Batches.Where(b => !b.PublishedAt.HasValue).ToList(),
-            "published" => Batches.Where(b => b.PublishedAt.HasValue).ToList(),
-            _ => Batches
-        };
-
-    private void PublishBatch(BatchMock batch) { }
-    private void PublishAll() { }
 }

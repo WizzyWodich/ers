@@ -27,7 +27,6 @@
 
 @code {
     private bool isDarkMode;
-    private bool isInitialized;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -43,7 +42,6 @@
 
         await JS.InvokeVoidAsync("ersAdminTheme.apply", isDarkMode);
 
-        isInitialized = true;
         StateHasChanged(); 
     }
 
