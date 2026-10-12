@@ -1,0 +1,307 @@
+@if (IsOpen)
+{
+    <div class="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 overflow-y-auto">
+        <div class="absolute inset-0 bg-slate-900/50 dark:bg-black/70 backdrop-blur-sm animate-fade-in"
+             @onclick="Close"></div>
+
+        <div class="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-2xl shadow-black/20 animate-modal-in">
+
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-zinc-800">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 dark:text-blue-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-semibold leading-tight">Новая замена</h2>
+                        <p class="text-xs text-slate-500 dark:text-zinc-500 leading-tight">Изменение в расписании</p>
+                    </div>
+                </div>
+                <button @onclick="Close" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 dark:text-zinc-500 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-700 dark:hover:text-zinc-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="px-5 py-5 space-y-6">
+
+                <section>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">1. Группы</label>
+                        <div class="flex items-center gap-1">
+                            <button @onclick="SelectAllGroups" class="px-2 py-0.5 rounded text-[11px] font-medium text-slate-500 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors">Все</button>
+                            <button @onclick="ClearGroups" class="px-2 py-0.5 rounded text-[11px] font-medium text-slate-500 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors">Снять</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 p-3 rounded-lg bg-slate-50 dark:bg-zinc-950/60 border border-slate-200 dark:border-zinc-800 min-h-[44px]">
+                        @foreach (var g in Groups)
+                        {
+                            var sel = SelectedGroupIds.Contains(g.Id);
+                            <button @onclick="() => ToggleGroup(g.Id)" class="px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-150 @(sel ? "bg-blue-500 text-white shadow-sm shadow-blue-500/25" : "bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700")">@g.DisplayName</button>
+                        }
+                    </div>
+                </section>
+
+                <section>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">2. Дата</label>
+                    <input type="date" value="@Date.ToString("yyyy-MM-dd")" @onchange="OnDateChanged" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                </section>
+
+                <section>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">3. Пары</label>
+                    <div class="flex items-center gap-3 mb-2">
+                        <label class="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="pm" checked="@(!isPairRange)" @onchange="() => isPairRange = false" class="w-3.5 h-3.5 accent-blue-500" />
+                            <span class="text-sm">Одна</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="pm" checked="@isPairRange" @onchange="() => isPairRange = true" class="w-3.5 h-3.5 accent-blue-500" />
+                            <span class="text-sm">Диапазон</span>
+                        </label>
+                    </div>
+                    @if (!isPairRange)
+                    {
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-slate-500 dark:text-zinc-500">Пара:</span>
+                            <input type="number" min="1" max="7" @bind="PairFrom" class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-slate-500 dark:text-zinc-500">С</span>
+                            <input type="number" min="1" max="7" @bind="PairFrom" class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                            <span class="text-sm text-slate-500 dark:text-zinc-500">по</span>
+                            <input type="number" min="1" max="7" @bind="PairTo" class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                        </div>
+                    }
+                </section>
+
+                <section>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">4. Что делаем</label>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        @foreach (var t in OverrideTypes)
+                        {
+                            var sel = OverrideType == t.Key;
+                            <button @onclick="() => OverrideType = t.Key" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left border transition-all duration-150 @(sel ? "bg-blue-500/10 border-blue-500/40 text-blue-700 dark:text-blue-400" : "bg-white dark:bg-zinc-950 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700")">
+                                <span class="text-base shrink-0">@t.Icon</span>
+                                <span class="truncate">@t.Label</span>
+                            </button>
+                        }
+                    </div>
+                </section>
+
+                @if (OverrideType == "SubstituteTeacher")
+                {
+                    <section class="space-y-3">
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">5. Замена преподавателя</label>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Старый (необязательно)</label>
+                            <select @bind="OldTeacher" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                <option value="">— не указано —</option>
+                                @foreach (var t in Teachers) { <option value="@t">@t</option> }
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Новый</label>
+                            <select @bind="NewTeacher" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                <option value="">— выберите —</option>
+                                @foreach (var t in Teachers) { <option value="@t">@t</option> }
+                            </select>
+                        </div>
+                    </section>
+                }
+                else if (OverrideType == "SubstituteSubject")
+                {
+                    <section class="space-y-3">
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">5. Замена предмета</label>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Старый (необязательно)</label>
+                            <select @bind="OldSubject" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                <option value="">— не указано —</option>
+                                @foreach (var s in Subjects) { <option value="@s">@s</option> }
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Новый</label>
+                            <select @bind="NewSubject" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                <option value="">— выберите —</option>
+                                @foreach (var s in Subjects) { <option value="@s">@s</option> }
+                            </select>
+                        </div>
+                    </section>
+                }
+                else if (OverrideType == "SubstituteRoom")
+                {
+                    <section>
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">5. Замена аудитории</label>
+                        <select @bind="NewRoom" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                            <option value="">— выберите —</option>
+                            @foreach (var r in Rooms) { <option value="@r">@r</option> }
+                        </select>
+                    </section>
+                }
+                else if (OverrideType == "Move")
+                {
+                    <section>
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">5. Перенос</label>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-slate-500 dark:text-zinc-500">На пару:</span>
+                            <input type="number" min="1" max="7" @bind="MoveToPair" class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                        </div>
+                    </section>
+                }
+                else if (OverrideType == "Add")
+                {
+                    <section class="space-y-3">
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">5. Что добавляем</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Предмет</label>
+                                <select @bind="NewSubject" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                    <option value="">— выберите —</option>
+                                    @foreach (var s in Subjects) { <option value="@s">@s</option> }
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Преподаватель</label>
+                                <select @bind="NewTeacher" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                    <option value="">— выберите —</option>
+                                    @foreach (var t in Teachers) { <option value="@t">@t</option> }
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">Аудитория</label>
+                                <select @bind="NewRoom" class="w-full px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+                                    <option value="">— выберите —</option>
+                                    @foreach (var r in Rooms) { <option value="@r">@r</option> }
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                }
+
+                <section>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">6. Причина (необязательно)</label>
+                    <textarea @bind="Reason" rows="2" placeholder="Преподаватель на больничном..." class="w-full px-3 py-2 rounded-lg text-sm resize-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 placeholder-slate-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"></textarea>
+                </section>
+            </div>
+
+            <div class="px-5 py-4 border-t border-slate-100 dark:border-zinc-800 space-y-3">
+                @if (CanCreate)
+                {
+                    <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/5 border border-blue-500/20 text-sm text-blue-700 dark:text-blue-400">
+                        <span>Будет создано <strong class="tabular-nums">@WillCreateCount</strong> @(WillCreateCount == 1 ? "замена" : "замен") · <span class="tabular-nums">@SelectedGroupIds.Count</span> @(SelectedGroupIds.Count == 1 ? "группа" : "групп")</span>
+                    </div>
+                }
+                <div class="flex items-center justify-end gap-2">
+                    <button @onclick="Close" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors">Отмена</button>
+                    <button @onclick="Create" disabled="@(!CanCreate)" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 @(CanCreate ? "bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25" : "bg-slate-100 dark:bg-zinc-800 text-slate-400 dark:text-zinc-600 cursor-not-allowed")">Создать черновики</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public string? PreGroupId { get; set; }
+    [Parameter] public DateOnly? PreDate { get; set; }
+
+    public sealed record GroupItem(string Id, string DisplayName);
+    public sealed record OverrideTypeItem(string Key, string Label, string Icon);
+
+    private List<GroupItem> Groups { get; } = new()
+    {
+        new("k21", "К-21"), new("k22", "К-22"), new("k41", "К-41"),
+        new("b31", "Б-31"), new("b32", "Б-32"), new("p41", "П-41"),
+        new("ag11", "Аг-11"), new("ag21", "Аг-21"),
+        new("d11", "Д-11"), new("d21", "Д-21"),
+        new("e31", "Е-31"), new("e32", "Е-32"),
+    };
+
+    private List<string> Teachers { get; } = new()
+    {
+        "Петров И.С.", "Сидоров А.В.", "Иванов П.П.", "Кузнецова М.И.", "Смирнов Д.А."
+    };
+
+    private List<string> Subjects { get; } = new()
+    {
+        "Программирование", "Математика", "Физкультура", "История", "ОБЖ"
+    };
+
+    private List<string> Rooms { get; } = new()
+    {
+        "301", "302", "305", "Спортзал"
+    };
+
+    private List<OverrideTypeItem> OverrideTypes { get; } = new()
+    {
+        new("Cancel",            "Отменить",           "✕"),
+        new("SubstituteTeacher", "Заменить препода",   "👤"),
+        new("SubstituteSubject", "Заменить предмет",   "📘"),
+        new("SubstituteRoom",    "Заменить аудиторию", "📍"),
+        new("Move",              "Перенести",          "→"),
+        new("Add",               "Добавить",           "+"),
+        new("FreeDay",           "Свободный день",     "🏖"),
+    };
+
+    private HashSet<string> SelectedGroupIds { get; } = new();
+    private DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    private bool isPairRange;
+    private int PairFrom { get; set; } = 1;
+    private int PairTo { get; set; } = 1;
+    private string OverrideType { get; set; } = "Cancel";
+
+    private string OldTeacher { get; set; } = "";
+    private string NewTeacher { get; set; } = "";
+    private string OldSubject { get; set; } = "";
+    private string NewSubject { get; set; } = "";
+    private string NewRoom { get; set; } = "";
+    private int MoveToPair { get; set; } = 1;
+    private string Reason { get; set; } = "";
+
+    private bool _wasOpen;
+
+    protected override void OnParametersSet()
+    {
+        if (IsOpen && !_wasOpen)
+        {
+            _wasOpen = true;
+            if (!string.IsNullOrEmpty(PreGroupId)) SelectedGroupIds.Add(PreGroupId);
+            if (PreDate.HasValue) Date = PreDate.Value;
+        }
+        if (!IsOpen && _wasOpen) _wasOpen = false;
+    }
+
+    private void ToggleGroup(string id)
+    {
+        if (!SelectedGroupIds.Add(id)) SelectedGroupIds.Remove(id);
+    }
+
+    private void SelectAllGroups()
+    {
+        foreach (var g in Groups) SelectedGroupIds.Add(g.Id);
+    }
+
+    private void ClearGroups() => SelectedGroupIds.Clear();
+
+    private void OnDateChanged(ChangeEventArgs e)
+    {
+        if (DateOnly.TryParse(e.Value?.ToString(), out var d)) Date = d;
+    }
+
+    private int PairsCount => isPairRange ? Math.Max(1, PairTo - PairFrom + 1) : 1;
+    private int WillCreateCount => SelectedGroupIds.Count * PairsCount;
+
+    private bool CanCreate =>
+        SelectedGroupIds.Count > 0
+        && PairFrom >= 1 && PairFrom <= 7
+        && (!isPairRange || (PairTo >= PairFrom && PairTo <= 7));
+
+    private void Close() => OnClose.InvokeAsync();
+    private void Create() => Close();
+}

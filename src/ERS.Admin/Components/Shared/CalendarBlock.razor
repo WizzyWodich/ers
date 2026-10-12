@@ -1,0 +1,30 @@
+<div class="rounded-xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+    <div class="flex items-center justify-between px-3 py-2 border-b border-zinc-800">
+        <h3 class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">
+            @(ShowMonth ? "Месяц" : "Неделя")
+        </h3>
+        <CalendarSwitcher ShowMonth="ShowMonth" OnToggle="OnToggle" />
+    </div>
+
+    @if (ShowMonth)
+    {
+        <div @key="MonthKey" class="animate-slide-in">
+            <MonthCalendar OnDayClick="OnDayClick" />
+        </div>
+    }
+    else
+    {
+        <div @key="WeekKey" class="animate-slide-in">
+            <WeekStrip OnDayClick="OnDayClick" />
+        </div>
+    }
+</div>
+
+@code {
+    private const string MonthKey = "month";
+    private const string WeekKey = "week";
+
+    [Parameter] public bool ShowMonth { get; set; }
+    [Parameter] public EventCallback<bool> OnToggle { get; set; }
+    [Parameter] public EventCallback<DateOnly> OnDayClick { get; set; }
+}

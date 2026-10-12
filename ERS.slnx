@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/ERS.Admin/ERS.Admin.csproj" />
     <Project Path="src/ERS.Api/ERS.Api.csproj" />
     <Project Path="src/ERS.Application/ERS.Application.csproj" />
     <Project Path="src/ERS.Domain/ERS.Domain.csproj" />

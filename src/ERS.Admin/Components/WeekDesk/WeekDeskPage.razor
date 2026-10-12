@@ -1,0 +1,158 @@
+@page "/week-desk"
+@using ERS.Admin.Components.WeekDesk
+@using ERS.Admin.Components.Override
+
+<PageTitle>ERS Admin — Замены на неделю</PageTitle>
+
+<div class="p-6 lg:p-8">
+
+    @* Шапка *@
+    <div class="mb-6 flex items-end justify-between gap-4 flex-wrap">
+        <div>
+            <h1 class="text-2xl font-semibold tracking-tight">Замены на неделю</h1>
+            <p class="text-sm text-slate-500 dark:text-zinc-500 mt-1">
+                Пакет «Зміни з 21 по 25 квітня»
+                · <span class="tabular-nums">@TotalCount</span> замен
+                · <span class="tabular-nums">@GroupCount</span> групп
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button class="px-3.5 h-9 rounded-lg text-sm font-medium
+                           bg-white dark:bg-zinc-900
+                           border border-slate-200 dark:border-zinc-800
+                           text-slate-700 dark:text-zinc-300
+                           hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors">
+                Создать пакет
+            </button>
+            <button @onclick="PublishAll"
+                    disabled="@(TotalCount == 0)"
+                    class="flex items-center gap-2 px-3.5 h-9 rounded-lg
+                           text-sm font-medium transition-colors
+                           @(TotalCount > 0
+                               ? "bg-amber-500 hover:bg-amber-600 text-white shadow-lg shadow-amber-500/20"
+                               : "bg-slate-100 dark:bg-zinc-800 text-slate-400 dark:text-zinc-600 cursor-not-allowed")">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                </svg>
+                Опубликовать всё (@TotalCount)
+            </button>
+        </div>
+    </div>
+
+    @* Сетка 5 колонок *@
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        @foreach (var col in Columns)
+        {
+            <DayColumn Day="col.Day"
+                       DayOfWeek="col.DayOfWeek"
+                       Items="col.Items"
+                       OnAdd="() => AddOverride(col.Day)"
+                       OnRemove="(id) => RemoveOverride(id)"
+                       OnDuplicate="(item) => DuplicateOverride(item, col.Day)"
+                       OnCopyDay="() => CopyDay(col.Day)" />
+        }
+    </div>
+
+    @* Итог *@
+    @if (TotalCount > 0)
+    {
+        <div class="mt-5 flex items-center gap-3 px-4 py-3 rounded-xl
+                    bg-amber-500/5 border border-amber-500/20
+                    text-sm text-amber-700 dark:text-amber-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 shrink-0">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+            </svg>
+            <span>
+                <strong class="tabular-nums">@TotalCount</strong> замен в черновике.
+                После публикации студенты увидят изменения сразу.
+            </span>
+        </div>
+    }
+</div>
+
+<OverrideModal IsOpen="showModal" OnClose="CloseModal" PreDate="modalDate" />
+
+@code {
+    public sealed record OverrideItem(string Id, string Group, string Pairs, string Action, string Target, string? Reason);
+
+    public sealed record DayColumnItem(DateOnly Day, string DayOfWeek, List<OverrideItem> Items);
+
+    private bool showModal;
+    private DateOnly modalDate = DateOnly.FromDateTime(DateTime.Today);
+
+    private List<DayColumnItem> Columns { get; } = new()
+    {
+        new(new DateOnly(2025, 4, 21), "ПН 21.04", new()
+        {
+            new("1", "К-41", "3-5", "Практика",   "Тітянкин С.С.", null),
+            new("2", "К-31", "1",   "Операционные системы", "Тітянкин С.С.", null),
+        }),
+        new(new DateOnly(2025, 4, 22), "ВТ 22.04", new()
+        {
+            new("3", "К-41", "3-5", "Практика", "Тітянкин С.С.", null),
+            new("4", "К-31", "1",   "Операционные системы", "Тітянкин С.С.", null),
+        }),
+        new(new DateOnly(2025, 4, 23), "СР 23.04", new()
+        {
+            new("5", "К-41", "3-5", "Практика", "Тітянкин С.С.", null),
+            new("6", "К-31", "1",   "Операционные системы", "Тітянкин С.С.", null),
+        }),
+        new(new DateOnly(2025, 4, 24), "ЧТ 24.04", new()
+        {
+            new("7", "К-41", "3-5", "Практика", "Тітянкин С.С.", null),
+        }),
+        new(new DateOnly(2025, 4, 25), "ПТ 25.04", new()
+        {
+            new("8", "К-41", "3-5", "Практика", "Тітянкин С.С.", null),
+        }),
+    };
+
+    private int TotalCount => Columns.Sum(c => c.Items.Count);
+    private int GroupCount => Columns.SelectMany(c => c.Items).Select(i => i.Group).Distinct().Count();
+
+    private void AddOverride(DateOnly date)
+    {
+        modalDate = date;
+        showModal = true;
+    }
+
+    private void CloseModal() => showModal = false;
+
+    private void RemoveOverride(string id)
+    {
+        foreach (var col in Columns)
+        {
+            col.Items.RemoveAll(i => i.Id == id);
+        }
+    }
+
+    private void DuplicateOverride(OverrideItem item, DateOnly fromDay)
+    {
+        var nextId = Guid.NewGuid().ToString("N")[..8];
+        foreach (var col in Columns.Where(c => c.Day != fromDay))
+        {
+            col.Items.Add(item with { Id = nextId + col.Day.Day });
+        }
+    }
+
+    private void CopyDay(DateOnly fromDay)
+    {
+        var source = Columns.FirstOrDefault(c => c.Day == fromDay);
+        if (source is null) return;
+
+        foreach (var col in Columns.Where(c => c.Day != fromDay))
+        {
+            col.Items.Clear();
+            foreach (var item in source.Items)
+            {
+                col.Items.Add(item with { Id = Guid.NewGuid().ToString("N")[..8] });
+            }
+        }
+    }
+
+    private void PublishAll()
+    {
+        // TODO: API
+    }
+}

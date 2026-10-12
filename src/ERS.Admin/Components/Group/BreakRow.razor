@@ -1,0 +1,40 @@
+@*
+    Перемена — тонкая полоса между парами.
+    Type: "Small" | "Big"
+*@
+
+@if (Type == "Big")
+{
+    <div class="grid grid-cols-[72px_1fr_220px_100px_110px] bg-violet-500/5 dark:bg-violet-950/10">
+        <div class="px-4 py-2 flex items-center justify-center border-r border-violet-500/10 dark:border-violet-900/20">
+            <span class="text-[10px] font-mono tabular-nums text-violet-500 dark:text-violet-400/70">@Time</span>
+        </div>
+        <div class="px-4 py-2 flex items-center gap-2 col-span-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-violet-500 dark:bg-violet-400"></span>
+            <span class="text-[10px] font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider">
+                Большая перемена · @Duration мин
+            </span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="grid grid-cols-[72px_1fr_220px_100px_110px] bg-blue-500/5 dark:bg-blue-950/10">
+        <div class="px-4 py-1.5 flex items-center justify-center border-r border-blue-500/10 dark:border-blue-900/20">
+            <span class="text-[10px] font-mono tabular-nums text-blue-500 dark:text-blue-400/70">@Time</span>
+        </div>
+        <div class="px-4 py-1.5 flex items-center gap-2 col-span-4">
+            <span class="w-1 h-1 rounded-full bg-blue-500 dark:bg-blue-400"></span>
+            <span class="text-[10px] font-medium text-blue-600 dark:text-blue-400/80 uppercase tracking-wider">
+                Перемена · @Duration мин
+            </span>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public string Time { get; set; } = "";
+    [Parameter, EditorRequired] public int Duration { get; set; }
+    /// "Small" | "Big"
+    [Parameter] public string Type { get; set; } = "Small";
+}
