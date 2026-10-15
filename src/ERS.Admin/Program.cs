@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<ExcelExportService>();
 builder.Services.AddScoped<FileSaver>();
-builder.Services.AddSingleton<Localizer>();
+builder.Services.AddScoped<Localizer>();
 
 var app = builder.Build();
 

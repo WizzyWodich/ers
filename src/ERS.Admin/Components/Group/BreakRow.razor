@@ -1,3 +1,5 @@
+@inject Localizer L
+
 @*
     Перемена — тонкая полоса между парами.
     Type: "Small" | "Big"
@@ -12,7 +14,7 @@
         <div class="px-4 py-2 flex items-center gap-2 col-span-4">
             <span class="w-1.5 h-1.5 rounded-full bg-violet-500 dark:bg-violet-400"></span>
             <span class="text-[10px] font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider">
-                Большая перемена · @Duration мин
+                @L.Format("break.long", Duration)
             </span>
         </div>
     </div>
@@ -26,7 +28,7 @@ else
         <div class="px-4 py-1.5 flex items-center gap-2 col-span-4">
             <span class="w-1 h-1 rounded-full bg-blue-500 dark:bg-blue-400"></span>
             <span class="text-[10px] font-medium text-blue-600 dark:text-blue-400/80 uppercase tracking-wider">
-                Перемена · @Duration мин
+                @L.Format("break.short", Duration)
             </span>
         </div>
     </div>
@@ -35,6 +37,7 @@ else
 @code {
     [Parameter, EditorRequired] public string Time { get; set; } = "";
     [Parameter, EditorRequired] public int Duration { get; set; }
+
     /// "Small" | "Big"
     [Parameter] public string Type { get; set; } = "Small";
 }

@@ -19,18 +19,34 @@
 </div>
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender) return;
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if (!firstRender) return;
 
-        var stored = await JS.InvokeAsync<string?>("localStorage.getItem", "ers-lang");
-        if (!string.IsNullOrEmpty(stored))
+    var stored = await JS.InvokeAsync<string?>("localStorage.getItem", "ers-lang");
+
+    if (!string.IsNullOrEmpty(stored))
+    {
+        // Пользователь уже выбирал — берём сохранённый
+        L.SetLanguage(Localizer.ParseLanguage(stored));
+    }
+    else
+    {
+        // Первый заход — берём из браузера
+        var browserLang = await JS.InvokeAsync<string>("navigator.language");
+        // "uk-UA" → "uk", "en-US" → "en", остальное → En
+        if (browserLang.StartsWith("uk", StringComparison.OrdinalIgnoreCase))
         {
-            L.SetLanguage(Localizer.ParseLanguage(stored));
-            StateHasChanged();
+            L.SetLanguage(Language.Uk);
+        }
+        else
+        {
+            L.SetLanguage(Language.En);
         }
     }
 
+    StateHasChanged();
+}
     private async Task SetLang(Language lang)
     {
         L.SetLanguage(lang);

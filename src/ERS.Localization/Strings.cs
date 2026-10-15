@@ -117,6 +117,65 @@ public static class Strings
             // ── Publish ──
             ["publish.button"] = "Publish ({0})",
             ["publish.title"] = "Publish {0} changes",
+
+
+            // ── Calendar ──
+            ["calendar.week"] = "Week",
+            ["calendar.month"] = "Month",
+            ["calendar.prevMonth"] = "Previous month",
+            ["calendar.nextMonth"] = "Next month",
+
+            // ── Override types ──
+["override.cancel"] = "Cancel",
+["override.substituteTeacher"] = "Substitute teacher",
+["override.substituteSubject"] = "Substitute subject",
+["override.substituteRoom"] = "Substitute room",
+["override.move"] = "Move",
+["override.add"] = "Add",
+["override.freeDay"] = "Free day",
+
+// ── Override modal ──
+["modal.title"] = "New override",
+["modal.subtitle"] = "Schedule change",
+["modal.groups"] = "1. Groups",
+["modal.selectAll"] = "All",
+["modal.clearAll"] = "Clear",
+["modal.selectAtLeastOne"] = "Select at least one group",
+["modal.date"] = "2. Date",
+["modal.pairs"] = "3. Pairs",
+["modal.pairOne"] = "One pair",
+["modal.pairRange"] = "Range",
+["modal.pairLabel"] = "Pair:",
+["modal.from"] = "From",
+["modal.to"] = "to",
+["modal.action"] = "4. What to do",
+
+["modal.oldTeacher"] = "Old (optional)",
+["modal.newTeacher"] = "New",
+["modal.oldSubject"] = "Old (optional)",
+["modal.newSubject"] = "New",
+["modal.newRoom"] = "New room",
+["modal.moveTo"] = "Move to pair:",
+
+["modal.subject"] = "Subject",
+["modal.teacherLabel"] = "Teacher",
+["modal.roomLabel"] = "Room",
+
+["modal.notSpecified"] = "— not specified —",
+["modal.selectPlaceholder"] = "— select —",
+
+["modal.reason"] = "6. Reason (optional)",
+["modal.reasonPlaceholder"] = "Teacher on sick leave, room occupied, ...",
+
+["modal.willCreate"] = "Will create",
+["modal.overrideOne"] = "override",
+["modal.overrideMany"] = "overrides",
+["modal.groupOne"] = "group",
+["modal.groupMany"] = "groups",
+["modal.pairsWord"] = "pairs",
+
+["modal.cancel"] = "Cancel",
+["modal.create"] = "Create drafts",
         },
 
         [Language.Uk] = new()
@@ -232,6 +291,64 @@ public static class Strings
             // ── Publish ──
             ["publish.button"] = "Опублікувати ({0})",
             ["publish.title"] = "Опублікувати {0} змін",
+
+            // ── Calendar ──
+            ["calendar.week"] = "Тиждень",
+            ["calendar.month"] = "Місяць",
+            ["calendar.prevMonth"] = "Попередній місяць",
+            ["calendar.nextMonth"] = "Наступний місяць",
+
+            // ── Override types ──
+["override.cancel"] = "Скасувати",
+["override.substituteTeacher"] = "Замінити викладача",
+["override.substituteSubject"] = "Замінити предмет",
+["override.substituteRoom"] = "Замінити аудиторію",
+["override.move"] = "Перенести",
+["override.add"] = "Додати",
+["override.freeDay"] = "Вільний день",
+
+// ── Override modal ──
+["modal.title"] = "Нова заміна",
+["modal.subtitle"] = "Зміна в розкладі",
+["modal.groups"] = "1. Групи",
+["modal.selectAll"] = "Усі",
+["modal.clearAll"] = "Зняти",
+["modal.selectAtLeastOne"] = "Оберіть хоча б одну групу",
+["modal.date"] = "2. Дата",
+["modal.pairs"] = "3. Пари",
+["modal.pairOne"] = "Одна пара",
+["modal.pairRange"] = "Діапазон",
+["modal.pairLabel"] = "Пара:",
+["modal.from"] = "З",
+["modal.to"] = "по",
+["modal.action"] = "4. Що робимо",
+
+["modal.oldTeacher"] = "Старий (необов'язково)",
+["modal.newTeacher"] = "Новий",
+["modal.oldSubject"] = "Старий (необов'язково)",
+["modal.newSubject"] = "Новий",
+["modal.newRoom"] = "Нова аудиторія",
+["modal.moveTo"] = "На пару:",
+
+["modal.subject"] = "Предмет",
+["modal.teacherLabel"] = "Викладач",
+["modal.roomLabel"] = "Аудиторія",
+
+["modal.notSpecified"] = "— не вказано —",
+["modal.selectPlaceholder"] = "— оберіть —",
+
+["modal.reason"] = "6. Причина (необов'язково)",
+["modal.reasonPlaceholder"] = "Викладач на лікарняному, аудиторія зайнята, ...",
+
+["modal.willCreate"] = "Буде створено",
+["modal.overrideOne"] = "заміна",
+["modal.overrideMany"] = "замін",
+["modal.groupOne"] = "група",
+["modal.groupMany"] = "груп",
+["modal.pairsWord"] = "пар",
+
+["modal.cancel"] = "Скасувати",
+["modal.create"] = "Створити чернетки",
         }
     };
 }

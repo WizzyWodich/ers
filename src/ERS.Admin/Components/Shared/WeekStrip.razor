@@ -1,15 +1,17 @@
+@inject Localizer L
+
 <div class="grid grid-cols-7">
     @foreach (var day in Days)
     {
         <button @onclick="() => OnDayClick.InvokeAsync(day.Date)"
-        class="relative flex flex-col items-center gap-0.5 py-2
-               hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition-colors
-               @(day.IsSelected ? "bg-blue-500/10" : "")">
-            <span class="text-[9px] font-medium text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                @day.DayOfWeekShort
+                class="relative flex flex-col items-center gap-1 py-3
+                       hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition-colors
+                       @(day.IsSelected ? "bg-blue-500/10" : "")">
+            <span class="text-[10px] font-medium text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
+                @L.DayOfWeekShort(day.Date.DayOfWeek)
             </span>
-            <span class="text-base font-semibold tabular-nums @(day.IsSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-zinc-200")">
-                @day.Day
+            <span class="text-lg font-semibold tabular-nums @(day.IsSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-zinc-200")">
+                @day.Date.Day
             </span>
             @if (day.HasReplacements)
             {
@@ -30,22 +32,19 @@
 @code {
     [Parameter] public EventCallback<DateOnly> OnDayClick { get; set; }
 
-    private sealed record DayInfo(DateOnly Date, string DayOfWeekShort, int Day, bool IsToday, bool IsSelected, bool HasReplacements);
+    private sealed record DayInfo(DateOnly Date, bool IsToday, bool IsSelected, bool HasReplacements);
 
     private List<DayInfo> Days { get; } = BuildWeek();
 
     private static List<DayInfo> BuildWeek()
     {
         var monday = new DateOnly(2025, 10, 13);
-        var names = new[] { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
 
         return Enumerable.Range(0, 7).Select(i =>
         {
             var d = monday.AddDays(i);
             return new DayInfo(
                 d,
-                names[i],
-                d.Day,
                 IsToday: d.Day == 14,
                 IsSelected: d.Day == 14,
                 HasReplacements: d.Day == 14 || d.Day == 16);

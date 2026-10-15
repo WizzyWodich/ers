@@ -1,7 +1,10 @@
+@inject Localizer L
+
 <div>
-    @* Заголовок с месяцем и стрелками *@
+    @* Заголовок: Месяц + Год *@
     <div class="flex items-center justify-between px-3 py-2 border-b border-slate-200 dark:border-zinc-800">
-        <button class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
+        <button title="@L["calendar.prevMonth"]"
+                class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
                        hover:bg-slate-100 dark:hover:bg-zinc-800
                        hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
@@ -9,8 +12,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
             </svg>
         </button>
-        <span class="text-sm font-semibold">Октябрь 2025</span>
-        <button class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
+        <span class="text-sm font-semibold capitalize">
+            @L.MonthName(CurrentMonth.Month) @CurrentMonth.Year
+        </span>
+        <button title="@L["calendar.nextMonth"]"
+                class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
                        hover:bg-slate-100 dark:hover:bg-zinc-800
                        hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
@@ -22,10 +28,10 @@
 
     @* Дни недели *@
     <div class="grid grid-cols-7 bg-slate-50/60 dark:bg-zinc-900/60 border-b border-slate-200 dark:border-zinc-800">
-        @foreach (var d in Weekdays)
+        @foreach (var d in WeekOrder)
         {
             <div class="py-1.5 text-center text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                @d
+                @L.DayOfWeekShort(d)
             </div>
         }
     </div>
@@ -68,15 +74,22 @@
 
     private sealed record Cell(DateOnly Date, int DayNumber, bool IsSelected, bool IsToday, bool HasReplacements);
 
-    private string[] Weekdays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
+    private static readonly DayOfWeek[] WeekOrder =
+    {
+        DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday,
+        DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday
+    };
+
+    private DateOnly CurrentMonth { get; } = new(2025, 10, 1);
 
     private List<Cell> Cells { get; } = BuildOctober2025();
 
     private static List<Cell> BuildOctober2025()
     {
-        // Октябрь 2025: 1-е — среда. В сетке с Пн-первым это 3-я ячейка.
         var result = new List<Cell>();
         var empty = new Cell(default, 0, false, false, false);
+
+        // 1 октября 2025 — среда. В сетке Пн-первой это 3-я ячейка.
         result.Add(empty);
         result.Add(empty);
 

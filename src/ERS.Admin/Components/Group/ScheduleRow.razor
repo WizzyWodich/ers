@@ -1,9 +1,11 @@
+@inject Localizer L
+
 @*
     Одна пара в таблице.
     Показывает: время, дисциплину, препода, аудиторию + кнопку действия.
 *@
 
-<div class="grid grid-cols-[72px_1fr_220px_100px_110px] transition-colors group
+<div class="grid grid-cols-[72px_1fr_220px_120px_110px] transition-colors group
             @(IsCancelled
                 ? "bg-slate-100/50 dark:bg-zinc-950/40 opacity-60"
                 : IsSubstituted
@@ -24,6 +26,17 @@
 
     @* Дисциплина *@
     <div class="px-4 py-4 border-l border-slate-100 dark:border-zinc-800/60 flex items-center gap-2 min-w-0">
+        @if (IsDraft)
+        {
+            <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded
+                         bg-slate-100 dark:bg-zinc-800
+                         text-slate-500 dark:text-zinc-400
+                         text-[10px] font-medium uppercase tracking-wider">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                @L["table.draft"]
+            </span>
+        }
+
         <span class="text-sm font-medium truncate
                      @(IsCancelled
                          ? "text-slate-400 dark:text-zinc-500 line-through"
@@ -36,7 +49,7 @@
             <span class="shrink-0 px-1.5 py-0.5 rounded text-[10px] font-medium
                          bg-amber-500/10 text-amber-600 dark:text-amber-400
                          border border-amber-500/20">
-                Замена
+                @L["table.substitution"]
             </span>
         }
         else if (Status == "Cancelled")
@@ -44,7 +57,7 @@
             <span class="shrink-0 px-1.5 py-0.5 rounded text-[10px] font-medium
                          bg-red-500/10 text-red-600 dark:text-red-400
                          border border-red-500/20">
-                Отменено
+                @L["table.cancelled"]
             </span>
         }
         else if (Status == "Added")
@@ -52,7 +65,7 @@
             <span class="shrink-0 px-1.5 py-0.5 rounded text-[10px] font-medium
                          bg-emerald-500/10 text-emerald-600 dark:text-emerald-400
                          border border-emerald-500/20">
-                Доп.
+                @L["table.added"]
             </span>
         }
     </div>
@@ -71,11 +84,12 @@
         else
         {
             <span class="text-sm truncate
-                        @(IsCancelled ? "text-slate-400 dark:text-zinc-500" : "text-slate-700 dark:text-zinc-300")">
+                         @(IsCancelled ? "text-slate-400 dark:text-zinc-500" : "text-slate-700 dark:text-zinc-300")">
                 @Teacher
             </span>
         }
     </div>
+
     @* Аудитория *@
     <div class="px-4 py-4 border-l border-slate-100 dark:border-zinc-800/60 flex items-center">
         <span class="text-sm
@@ -84,41 +98,34 @@
         </span>
     </div>
 
-   @* Действие *@
-    <div class="px-4 py-4 border-l border-slate-100 dark:border-zinc-800/60 flex items-center justify-end gap-2">
-        @if (IsDraft)
-        {
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded
-                        bg-slate-100 dark:bg-zinc-800
-                        text-slate-500 dark:text-zinc-400
-                        text-[10px] font-medium uppercase tracking-wider">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                Черновик
-            </span>
-        }
-
+    @* Действие *@
+    <div class="px-4 py-4 border-l border-slate-100 dark:border-zinc-800/60 flex items-center justify-end">
         <button @onclick="() => OnEdit.InvokeAsync()"
                 class="text-xs font-medium px-2.5 py-1.5 rounded-md
-                    text-slate-500 dark:text-zinc-400
-                    hover:text-blue-600 dark:hover:text-blue-400
-                    hover:bg-blue-500/10
-                    border border-transparent hover:border-blue-500/20
-                    transition-colors opacity-0 group-hover:opacity-100">
-            @(IsCancelled ? "Вернуть" : "Изменить")
+                       text-slate-500 dark:text-zinc-400
+                       hover:text-blue-600 dark:hover:text-blue-400
+                       hover:bg-blue-500/10
+                       border border-transparent hover:border-blue-500/20
+                       transition-colors opacity-0 group-hover:opacity-100">
+            @(IsCancelled ? L["table.return"] : L["table.change"])
         </button>
     </div>
 </div>
 
 @code {
+    [Parameter] public int Number { get; set; }
     [Parameter] public string Start { get; set; } = "";
     [Parameter] public string End { get; set; } = "";
     [Parameter] public string Subject { get; set; } = "";
     [Parameter] public string Teacher { get; set; } = "";
     [Parameter] public string? OldTeacher { get; set; }
     [Parameter] public string Room { get; set; } = "";
+
+    /// "Normal" | "Substituted" | "Cancelled" | "Added"
     [Parameter] public string Status { get; set; } = "Normal";
-    [Parameter] public EventCallback OnEdit { get; set; }
+
     [Parameter] public bool IsDraft { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
 
     private bool IsCancelled => Status == "Cancelled";
     private bool IsSubstituted => Status == "Substituted";
