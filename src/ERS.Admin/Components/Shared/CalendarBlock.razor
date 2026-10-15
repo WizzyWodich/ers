@@ -1,23 +1,23 @@
 @inject Localizer L
 
 <div class="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden">
-    <div class="flex items-center justify-between px-3 py-2 border-b border-slate-200 dark:border-zinc-800">
-        <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-            @(ShowMonth ? L["calendar.month"] : L["calendar.week"])
-        </h3>
-        <CalendarSwitcher ShowMonth="ShowMonth" OnToggle="OnToggle" />
-    </div>
+<div class="flex items-center justify-between px-2.5 py-1.5 border-b border-slate-200 dark:border-zinc-800">
+    <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
+        @(ShowMonth ? L["calendar.month"] : L["calendar.week"])
+    </h3>
+    <CalendarSwitcher ShowMonth="ShowMonth" OnToggle="OnToggle" />
+</div>
 
     @if (ShowMonth)
     {
         <div @key="MonthKey" class="animate-slide-in">
-            <MonthCalendar OnDayClick="OnDayClick" />
+            <MonthCalendar OnDayClick="OnDayClick" SelectedDate="SelectedDate" />
         </div>
     }
     else
     {
         <div @key="WeekKey" class="animate-slide-in">
-            <WeekStrip OnDayClick="OnDayClick" />
+            <WeekStrip OnDayClick="OnDayClick" SelectedDate="SelectedDate" />
         </div>
     }
 </div>
@@ -29,4 +29,5 @@
     [Parameter] public bool ShowMonth { get; set; }
     [Parameter] public EventCallback<bool> OnToggle { get; set; }
     [Parameter] public EventCallback<DateOnly> OnDayClick { get; set; }
+    [Parameter] public DateOnly SelectedDate { get; set; }
 }

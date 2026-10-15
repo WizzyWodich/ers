@@ -182,6 +182,11 @@ public static class Strings
 
 ["theme.toggle"] = "Toggle theme",
 
+["bells.title"] = "Bell schedule",
+["bells.pair"] = "Pair",
+["bells.break"] = "Break",
+["bells.bigBreak"] = "Long break",
+["bells.min"] = "min",
 
         },
 
@@ -362,6 +367,12 @@ public static class Strings
 ["mobile.description"] = "Панель диспетчера недоступна на мобільних пристроях. Будь ласка, скористайтеся комп'ютером або планшетом.",
 
 ["theme.toggle"] = "Перемкнути тему",
+
+["bells.title"] = "Розклад дзвінків",
+["bells.pair"] = "Пара",
+["bells.break"] = "Перерва",
+["bells.bigBreak"] = "Велика перерва",
+["bells.min"] = "хв",
         }
     };
 }

@@ -1,0 +1,91 @@
+@inject Localizer L
+
+<div class="rounded-xl border border-slate-200 dark:border-zinc-800
+            bg-white dark:bg-zinc-900/40 overflow-hidden">
+
+    @* Заголовок *@
+    <div class="px-4 py-3 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/60 dark:bg-zinc-900/60">
+        <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
+            @L["bells.title"]
+        </h3>
+    </div>
+
+    <div class="divide-y divide-slate-100 dark:divide-zinc-800/60">
+
+        @foreach (var sector in Sectors)
+        {
+            @if (sector.Type == "Pair")
+            {
+                <div class="grid grid-cols-[40px_1fr_100px] items-center px-4 py-2.5
+                            hover:bg-slate-50/60 dark:hover:bg-zinc-800/30 transition-colors">
+
+                    @* Номер пары *@
+                    <div class="text-sm font-bold tabular-nums text-blue-600 dark:text-blue-400">
+                        @sector.Number
+                    </div>
+
+                    @* Название *@
+                    <div class="text-sm text-slate-700 dark:text-zinc-300">
+                        @L["bells.pair"] @sector.Number
+                    </div>
+
+                    @* Время *@
+                    <div class="text-right text-sm font-mono tabular-nums text-slate-900 dark:text-zinc-100">
+                        @sector.Start–@sector.End
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="grid grid-cols-[40px_1fr_100px] items-center px-4 py-1.5
+                            bg-slate-50/40 dark:bg-zinc-950/20">
+
+                    @* Иконка/полоса *@
+                    <div class="flex items-center justify-center">
+                        <span class="w-1 h-1 rounded-full
+                                     @(sector.Type == "BigBreak"
+                                         ? "bg-violet-500 dark:bg-violet-400"
+                                         : "bg-blue-400 dark:bg-blue-500")">
+                        </span>
+                    </div>
+
+                    @* Тип перемены *@
+                    <div class="text-[11px] font-medium uppercase tracking-wider
+                                @(sector.Type == "BigBreak"
+                                    ? "text-violet-600 dark:text-violet-400"
+                                    : "text-blue-600 dark:text-blue-400/80")">
+                        @(sector.Type == "BigBreak" ? L["bells.bigBreak"] : L["bells.break"])
+                    </div>
+
+                    @* Длительность *@
+                    <div class="text-right text-[11px] font-mono tabular-nums
+                                @(sector.Type == "BigBreak"
+                                    ? "text-violet-600 dark:text-violet-400"
+                                    : "text-blue-600 dark:text-blue-400/80")">
+                        @sector.Duration @L["bells.min"]
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private sealed record Sector(
+        string Type,        
+        int Number,         
+        string Start,
+        string End,
+        int Duration);      
+
+    private List<Sector> Sectors { get; } = new()
+    {
+        new("Pair",     1, "08:00", "09:20", 0),
+        new("Break",    0, "09:20", "09:30", 10),
+        new("Pair",     2, "09:30", "10:50", 0),
+        new("BigBreak", 0, "10:50", "11:40", 50),
+        new("Pair",     3, "11:40", "13:00", 0),
+        new("Break",    0, "13:00", "13:10", 10),
+        new("Pair",     4, "13:10", "14:30", 0),
+    };
+}
