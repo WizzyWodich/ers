@@ -11,5 +11,34 @@ services:
     volumes:
       - ers_postgres_data:/var/lib/postgresql/data
 
+
+  admin:
+    build:
+      context: .
+      dockerfile: src/ERS.Admin/Dockerfile
+    container_name: ers-admin
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: ers-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - admin
+    restart: unless-stopped
+
 volumes:
   ers_postgres_data:
+  caddy_data:
+  caddy_config:
