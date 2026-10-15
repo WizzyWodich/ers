@@ -176,6 +176,13 @@ public static class Strings
 
 ["modal.cancel"] = "Cancel",
 ["modal.create"] = "Create drafts",
+
+["mobile.title"] = "Desktop only",
+["mobile.description"] = "The dispatcher panel is not available on mobile devices. Please use a desktop computer or tablet.",
+
+["theme.toggle"] = "Toggle theme",
+
+
         },
 
         [Language.Uk] = new()
@@ -349,6 +356,12 @@ public static class Strings
 
 ["modal.cancel"] = "Скасувати",
 ["modal.create"] = "Створити чернетки",
+
+
+["mobile.title"] = "Лише для комп'ютера",
+["mobile.description"] = "Панель диспетчера недоступна на мобільних пристроях. Будь ласка, скористайтеся комп'ютером або планшетом.",
+
+["theme.toggle"] = "Перемкнути тему",
         }
     };
 }

@@ -23,5 +23,9 @@ window.ersAdminTheme = {
         window.__ersAdminThemeTimeout = window.setTimeout(function () {
             root.classList.remove('theme-transition');
         }, 400);
+    },
+
+    getBrowserLanguage: function () {
+        return (navigator.language || navigator.userLanguage || 'en').toLowerCase();
     }
 };

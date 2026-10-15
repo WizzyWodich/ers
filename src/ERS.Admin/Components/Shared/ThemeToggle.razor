@@ -1,10 +1,11 @@
 @inject IJSRuntime JS
+@inject Localizer L
 
 <button @onclick="ToggleTheme"
         class="relative w-14 h-8 rounded-full transition-colors duration-300
                bg-slate-200 dark:bg-zinc-800
                hover:bg-slate-300 dark:hover:bg-zinc-700"
-        title="Переключить тему">
+        title="@L["theme.toggle"]">
     <span class="absolute top-1 left-1 w-6 h-6 rounded-full
                  bg-white dark:bg-zinc-950
                  shadow-md flex items-center justify-center
@@ -30,7 +31,6 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Выполняем только один раз, после того как JS-рантайм готов
         if (!firstRender) return;
 
         var stored = await JS.InvokeAsync<string?>("ersAdminTheme.getStored");
@@ -42,7 +42,7 @@
 
         await JS.InvokeVoidAsync("ersAdminTheme.apply", isDarkMode);
 
-        StateHasChanged(); 
+        StateHasChanged();
     }
 
     private async Task ToggleTheme()

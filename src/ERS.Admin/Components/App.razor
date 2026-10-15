@@ -4,19 +4,117 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERS Admin</title>
     <base href="/" />
-    <ResourcePreloader />
+
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('ers-admin-theme');
+                var isDark = stored === 'dark' ||
+                    (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) document.documentElement.classList.add('dark');
+            } catch (e) { }
+        })();
+    </script>
+
     <link rel="stylesheet" href="css/app.min.css" />
-    <ImportMap />
-    <script src="js/theme.js"></script>
-    <script src="js/file.js"></script>
     <HeadOutlet />
+
+    <style>
+        #ers-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            background: #f8fafc;
+            transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html.dark #ers-loader {
+            background: #09090b;
+        }
+
+        #ers-loader.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ers-loader-logo {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0.4em;
+            padding-left: 0.4em;
+            color: #0f172a;
+            animation: ers-pulse 1.8s ease-in-out infinite;
+        }
+
+        html.dark .ers-loader-logo {
+            color: #f4f4f5;
+        }
+
+        @@keyframes ers-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .ers-loader-dots {
+            display: flex;
+            gap: 7px;
+        }
+
+        .ers-loader-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #3b82f6;
+            animation: ers-dot 1.4s ease-in-out infinite;
+        }
+
+        .ers-loader-dots span:nth-child(2) {
+            animation-delay: 0.15s;
+            background: #6366f1;
+        }
+
+        .ers-loader-dots span:nth-child(3) {
+            animation-delay: 0.3s;
+            background: #8b5cf6;
+        }
+
+        @@keyframes ers-dot {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div id="ers-loader">
+        <div class="ers-loader-logo">ERS CRM Panel</div>
+        <div class="ers-loader-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
     <Routes />
-    <ReconnectModal />
-    <script src="@Assets["_framework/blazor.web.js"]"></script>
+
+    <script src="js/theme.js"></script>
+    <script src="js/file.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>
