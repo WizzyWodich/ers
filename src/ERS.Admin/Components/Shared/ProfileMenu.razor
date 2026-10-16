@@ -1,7 +1,8 @@
 @inject Localizer L
 
 <details class="group" style="position: relative;">
-    <summary class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg
+    <summary class="flex items-center justify-center xl:justify-start gap-2.5
+                    px-1 xl:px-2 py-1.5 rounded-lg
                     hover:bg-slate-100 dark:hover:bg-zinc-900
                     transition-colors cursor-pointer list-none
                     [&::-webkit-details-marker]:hidden">
@@ -9,18 +10,18 @@
                     flex items-center justify-center text-[10px] font-semibold text-white">
             ВП
         </div>
-        <div class="min-w-0 flex-1">
+        <div class="min-w-0 flex-1 hidden xl:block">
             <p class="text-xs font-medium truncate">Волков Павел</p>
             <p class="text-[10px] text-slate-500 dark:text-zinc-500 truncate">pavel@college.ua</p>
         </div>
-        <ChevronDownIcon class="w-3.5 h-3.5 shrink-0 text-slate-400 dark:text-zinc-500 transition-transform duration-200 group-open:rotate-180" />
+        <ChevronDownIcon class="w-3.5 h-3.5 shrink-0 text-slate-400 dark:text-zinc-500 hidden xl:block transition-transform duration-200 group-open:rotate-180" />
     </summary>
 
     <div class="rounded-xl bg-white dark:bg-zinc-900
                 border border-slate-200 dark:border-zinc-800
                 shadow-2xl shadow-black/10 dark:shadow-black/60
                 overflow-hidden"
-         style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; z-index: 50;">
+         style="position: absolute; bottom: 100%; left: 0; width: 256px; margin-bottom: 8px; z-index: 50;">
 
         <div class="px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
             <div class="flex items-start gap-3">
@@ -41,8 +42,7 @@
         </div>
 
         <div class="py-1">
-            <button disabled
-                    title="@L["layout.comingSoon"]"
+            <button disabled title="@L["layout.comingSoon"]"
                     class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
                            text-slate-400 dark:text-zinc-600 cursor-not-allowed">
                 <UserIcon class="w-4 h-4 shrink-0" />
@@ -50,8 +50,7 @@
                 <LockClosedIcon class="w-3.5 h-3.5 shrink-0" />
             </button>
 
-            <button disabled
-                    title="@L["layout.comingSoon"]"
+            <button disabled title="@L["layout.comingSoon"]"
                     class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
                            text-slate-400 dark:text-zinc-600 cursor-not-allowed">
                 <BellIcon class="w-4 h-4 shrink-0" />

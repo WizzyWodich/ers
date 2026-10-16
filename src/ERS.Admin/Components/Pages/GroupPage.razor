@@ -12,7 +12,7 @@
         <span class="text-slate-900 dark:text-zinc-100 font-medium">@currentGroup.DisplayName</span>
     </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] 2xl:grid-cols-[1fr_360px] gap-6">
 
         <div class="min-w-0">
 
@@ -26,31 +26,33 @@
                                OnNext="NextDay" />
 
                 <button @onclick="() => showOverrideModal = true"
-                        class="ml-auto flex items-center gap-2 px-3.5 h-9 rounded-lg
+                        title="@L["group.createOverride"]"
+                        class="ml-auto flex items-center gap-2 px-3 xl:px-3.5 h-9 rounded-lg
                                bg-blue-500 hover:bg-blue-600
                                text-white text-sm font-medium
                                shadow-lg shadow-blue-500/20
                                transition-colors">
-                    <PlusIcon class="w-4 h-4" />
-                    @L["group.createOverride"]
+                    <PlusIcon class="w-4 h-4 shrink-0" />
+                    <span class="hidden xl:inline">@L["group.createOverride"]</span>
                 </button>
 
                 @if (DraftCountForGroup > 0)
                 {
                     <button @onclick="PublishGroupDrafts"
                             title="@L.Format("publish.title", DraftCountForGroup)"
-                            class="flex items-center gap-2 px-3.5 h-9 rounded-lg
+                            class="flex items-center gap-2 px-3 xl:px-3.5 h-9 rounded-lg
                                    bg-amber-500 hover:bg-amber-600
                                    text-white text-sm font-medium
                                    shadow-lg shadow-amber-500/20
                                    transition-colors">
-                        <CloudArrowUpIcon class="w-4 h-4" />
-                        @L.Format("publish.button", DraftCountForGroup)
+                        <CloudArrowUpIcon class="w-4 h-4 shrink-0" />
+                        <span class="hidden xl:inline">@L.Format("publish.button", DraftCountForGroup)</span>
+                        <span class="xl:hidden tabular-nums">(@DraftCountForGroup)</span>
                     </button>
                 }
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-[500px_1fr] gap-4 mb-5 items-start">
+            <div class="grid grid-cols-1 xl:grid-cols-[360px_1fr] gap-4 mb-5 items-start">
                 <CalendarBlock ShowMonth="showMonth"
                                OnToggle="ToggleCalendar"
                                OnDayClick="SelectDate"

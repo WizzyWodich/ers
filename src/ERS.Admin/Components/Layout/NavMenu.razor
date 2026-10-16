@@ -1,35 +1,41 @@
 @inject Localizer L
 
-<nav class="flex-1 px-3 py-4 space-y-1">
+<nav class="flex-1 overflow-y-auto px-2 xl:px-3 py-4 space-y-1">
 
     <NavLink href="/" Match="NavLinkMatch.All"
-             class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors
+             title="@L["nav.schedule"]"
+             class="flex items-center justify-center xl:justify-start gap-2.5
+                    px-2 xl:px-3 py-2 rounded-lg text-sm transition-colors
                     text-slate-600 dark:text-zinc-400
                     hover:bg-slate-100 dark:hover:bg-zinc-900
                     hover:text-slate-900 dark:hover:text-zinc-100
                     [&.active]:bg-blue-500/10 [&.active]:text-blue-600 dark:[&.active]:text-blue-400 [&.active]:font-medium">
-        <CalendarDaysIcon class="w-4 h-4" />
-        @L["nav.schedule"]
+        <CalendarDaysIcon class="w-4 h-4 shrink-0" />
+        <span class="hidden xl:inline truncate">@L["nav.schedule"]</span>
     </NavLink>
 
     <NavLink href="/week-desk"
-             class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors
+             title="@L["nav.weekDesk"]"
+             class="flex items-center justify-center xl:justify-start gap-2.5
+                    px-2 xl:px-3 py-2 rounded-lg text-sm transition-colors
                     text-slate-600 dark:text-zinc-400
                     hover:bg-slate-100 dark:hover:bg-zinc-900
                     hover:text-slate-900 dark:hover:text-zinc-100
                     [&.active]:bg-blue-500/10 [&.active]:text-blue-600 dark:[&.active]:text-blue-400 [&.active]:font-medium">
-        <Squares2x2Icon class="w-4 h-4" />
-        @L["nav.weekDesk"]
+        <Squares2x2Icon class="w-4 h-4 shrink-0" />
+        <span class="hidden xl:inline truncate">@L["nav.weekDesk"]</span>
     </NavLink>
 
     <NavLink href="/overrides"
-             class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors
+             title="@L["nav.overrides"]"
+             class="flex items-center justify-center xl:justify-start gap-2.5
+                    px-2 xl:px-3 py-2 rounded-lg text-sm transition-colors
                     text-slate-600 dark:text-zinc-400
                     hover:bg-slate-100 dark:hover:bg-zinc-900
                     hover:text-slate-900 dark:hover:text-zinc-100
                     [&.active]:bg-blue-500/10 [&.active]:text-blue-600 dark:[&.active]:text-blue-400 [&.active]:font-medium">
-        <ArrowPathIcon class="w-4 h-4" />
-        @L["nav.overrides"]
+        <ArrowPathIcon class="w-4 h-4 shrink-0" />
+        <span class="hidden xl:inline truncate">@L["nav.overrides"]</span>
     </NavLink>
 
 </nav>

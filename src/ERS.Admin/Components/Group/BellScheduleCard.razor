@@ -1,7 +1,7 @@
 @inject Localizer L
 
 <div class="rounded-xl border border-slate-200 dark:border-zinc-800
-            bg-white dark:bg-zinc-900/40 overflow-hidden">
+            bg-white dark:bg-zinc-900/40 overflow-hidden max-w-2xl">
 
     <div class="px-4 py-3 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/60 dark:bg-zinc-900/60">
         <h3 class="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
@@ -15,7 +15,7 @@
         {
             @if (sector.Type == "Pair")
             {
-                <div class="grid grid-cols-[40px_1fr_100px] items-center px-4 py-2.5
+                <div class="grid grid-cols-[40px_1fr_120px] items-center px-4 py-2.5
                             hover:bg-slate-50/60 dark:hover:bg-zinc-800/30 transition-colors">
 
                     <div class="text-sm font-bold tabular-nums text-blue-600 dark:text-blue-400">
@@ -33,7 +33,7 @@
             }
             else
             {
-                <div class="grid grid-cols-[40px_1fr_100px] items-center px-4 py-1.5
+                <div class="grid grid-cols-[40px_1fr_120px] items-center px-4 py-1.5
                             bg-slate-50/40 dark:bg-zinc-950/20">
 
                     <div class="flex items-center justify-center">

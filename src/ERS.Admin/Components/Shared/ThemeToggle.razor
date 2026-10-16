@@ -1,28 +1,52 @@
 @inject IJSRuntime JS
 @inject Localizer L
 
-<button @onclick="ToggleTheme"
-        class="relative w-14 h-8 rounded-full transition-colors duration-300
-               bg-slate-200 dark:bg-zinc-800
-               hover:bg-slate-300 dark:hover:bg-zinc-700"
-        title="@L["theme.toggle"]">
-    <span class="absolute top-1 left-1 w-6 h-6 rounded-full
-                 bg-white dark:bg-zinc-950
-                 shadow-md flex items-center justify-center
-                 transition-transform duration-300
-                 @(isDarkMode ? "translate-x-6" : "translate-x-0")">
+@if (Compact)
+{
+    <button @onclick="ToggleTheme"
+            title="@L["theme.toggle"]"
+            class="w-8 h-8 rounded-lg flex items-center justify-center
+                   text-slate-500 dark:text-zinc-400
+                   hover:bg-slate-100 dark:hover:bg-zinc-800
+                   hover:text-slate-900 dark:hover:text-zinc-100
+                   transition-colors">
         @if (isDarkMode)
         {
-            <MoonIcon class="w-3.5 h-3.5 text-indigo-400" />
+            <MoonIcon class="w-4 h-4 text-indigo-400" />
         }
         else
         {
-            <SunIcon class="w-3.5 h-3.5 text-amber-500" />
+            <SunIcon class="w-4 h-4 text-amber-500" />
         }
-    </span>
-</button>
+    </button>
+}
+else
+{
+    <button @onclick="ToggleTheme"
+            class="relative w-14 h-8 rounded-full transition-colors duration-300
+                   bg-slate-200 dark:bg-zinc-800
+                   hover:bg-slate-300 dark:hover:bg-zinc-700"
+            title="@L["theme.toggle"]">
+        <span class="absolute top-1 left-1 w-6 h-6 rounded-full
+                     bg-white dark:bg-zinc-950
+                     shadow-md flex items-center justify-center
+                     transition-transform duration-300
+                     @(isDarkMode ? "translate-x-6" : "translate-x-0")">
+            @if (isDarkMode)
+            {
+                <MoonIcon class="w-3.5 h-3.5 text-indigo-400" />
+            }
+            else
+            {
+                <SunIcon class="w-3.5 h-3.5 text-amber-500" />
+            }
+        </span>
+    </button>
+}
 
 @code {
+    [Parameter] public bool Compact { get; set; }
+
     private bool isDarkMode;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

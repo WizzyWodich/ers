@@ -8,15 +8,17 @@
 <div @key="L.Current"
      class="h-screen flex bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 transition-colors duration-300">
 
-    <aside class="w-60 shrink-0 h-screen
+    <aside class="w-16 xl:w-60 2xl:w-64 shrink-0 h-screen
                   border-r border-slate-200 dark:border-zinc-900
                   bg-white dark:bg-zinc-950 flex flex-col transition-colors">
 
-        <div class="h-14 shrink-0 flex items-center gap-2.5 px-4 border-b border-slate-200 dark:border-zinc-900">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+        <div class="h-14 shrink-0 flex items-center justify-center xl:justify-start gap-2.5
+                    px-2 xl:px-4 border-b border-slate-200 dark:border-zinc-900">
+            <div class="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600
+                        flex items-center justify-center">
                 <CalendarDaysIcon class="w-4 h-4 text-white" />
             </div>
-            <div class="min-w-0">
+            <div class="min-w-0 hidden xl:block">
                 <h1 class="text-sm font-semibold leading-tight">@L["layout.brand"]</h1>
                 <p class="text-[10px] text-slate-500 dark:text-zinc-500 leading-tight">@L["layout.brandSubtitle"]</p>
             </div>
@@ -24,16 +26,21 @@
 
         <NavMenu />
 
-        <div class="shrink-0 border-t border-slate-200 dark:border-zinc-900 p-3 space-y-2">
+        <div class="shrink-0 border-t border-slate-200 dark:border-zinc-900 p-2 xl:p-3 space-y-2">
 
-            <div class="flex items-center justify-between px-2">
+            <div class="hidden xl:flex items-center justify-between px-2">
                 <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.language"]</span>
                 <LanguageSwitcher />
             </div>
 
-            <div class="flex items-center justify-between px-2">
+            <div class="hidden xl:flex items-center justify-between px-2">
                 <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.theme"]</span>
                 <ThemeToggle />
+            </div>
+
+            <div class="xl:hidden flex flex-col items-center gap-1 py-1">
+                <LanguageSwitcher Compact="true" />
+                <ThemeToggle Compact="true" />
             </div>
 
             <ProfileMenu />
@@ -41,7 +48,9 @@
     </aside>
 
     <main class="flex-1 min-w-0 h-screen overflow-y-auto">
-        @Body
+        <div class="max-w-[1800px] mx-auto">
+            @Body
+        </div>
     </main>
 </div>
 
