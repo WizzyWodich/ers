@@ -1,81 +1,78 @@
 @inject Localizer L
 
-<div class="relative">
-    <button @onclick="ToggleMenu"
-            class="flex items-center gap-2 pl-1 pr-2 py-1 rounded-full
-                   hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors">
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-[10px] font-semibold text-white">
+<details class="group" style="position: relative;">
+    <summary class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg
+                    hover:bg-slate-100 dark:hover:bg-zinc-900
+                    transition-colors cursor-pointer list-none
+                    [&::-webkit-details-marker]:hidden">
+        <div class="w-7 h-7 shrink-0 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600
+                    flex items-center justify-center text-[10px] font-semibold text-white">
             ВП
         </div>
-        <ChevronDownIcon class="@($"w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 hidden sm:block transition-transform {(isOpen ? "rotate-180" : "")}")" />
-    </button>
+        <div class="min-w-0 flex-1">
+            <p class="text-xs font-medium truncate">Волков Павел</p>
+            <p class="text-[10px] text-slate-500 dark:text-zinc-500 truncate">pavel@college.ua</p>
+        </div>
+        <ChevronDownIcon class="w-3.5 h-3.5 shrink-0 text-slate-400 dark:text-zinc-500 transition-transform duration-200 group-open:rotate-180" />
+    </summary>
 
-    @if (isOpen)
-    {
-        <div class="absolute right-0 mt-2 w-64 rounded-xl bg-white dark:bg-zinc-900
-                    border border-slate-200 dark:border-zinc-800 shadow-xl shadow-slate-900/5 dark:shadow-black/40
-                    overflow-hidden z-30">
-            <div class="px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
-                <p class="text-sm font-semibold truncate">Волков Павел</p>
-                <p class="text-xs text-slate-500 dark:text-zinc-500 truncate">pavel@college.ua</p>
-                <p class="text-[10px] text-slate-400 dark:text-zinc-600 mt-1">Група К-21 · 2 курс</p>
-            </div>
+    <div class="rounded-xl bg-white dark:bg-zinc-900
+                border border-slate-200 dark:border-zinc-800
+                shadow-2xl shadow-black/10 dark:shadow-black/60
+                overflow-hidden"
+         style="position: absolute; bottom: 100%; left: 0; right: 0; margin-bottom: 8px; z-index: 50;">
 
-            <div class="py-1">
-                <button disabled
-                        class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
-                               text-slate-400 dark:text-zinc-600
-                               cursor-not-allowed">
-                    <UserIcon class="w-4 h-4" />
-                    <span class="flex-1">Профіль</span>
-                    <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded
-                                 bg-slate-100 dark:bg-zinc-800
-                                 text-slate-500 dark:text-zinc-500
-                                 text-[9px] font-medium uppercase tracking-wider">
-                        <LockClosedIcon class="w-2.5 h-2.5" />
-                        @L["layout.comingSoon"]
+        <div class="px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
+            <div class="flex items-start gap-3">
+                <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600
+                            flex items-center justify-center text-xs font-semibold text-white">
+                    ВП
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-sm font-semibold truncate">Волков Павел</p>
+                    <p class="text-xs text-slate-500 dark:text-zinc-500 truncate">pavel@college.ua</p>
+                    <span class="inline-flex items-center gap-1 mt-1.5 px-1.5 py-0.5 rounded
+                                 bg-blue-500/10 text-blue-600 dark:text-blue-400
+                                 text-[10px] font-medium uppercase tracking-wider">
+                        @L["role.dispatcher"]
                     </span>
-                </button>
-
-                <button disabled
-                        class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
-                               text-slate-400 dark:text-zinc-600
-                               cursor-not-allowed">
-                    <BellIcon class="w-4 h-4" />
-                    <span class="flex-1">Повідомлення</span>
-                    <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded
-                                 bg-slate-100 dark:bg-zinc-800
-                                 text-slate-500 dark:text-zinc-500
-                                 text-[9px] font-medium uppercase tracking-wider">
-                        <LockClosedIcon class="w-2.5 h-2.5" />
-                        @L["layout.comingSoon"]
-                    </span>
-                </button>
-
-                <button @onclick="OpenSettings"
-                        class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
-                               hover:bg-slate-50 dark:hover:bg-zinc-800/60 transition-colors">
-                    <Cog6ToothIcon class="w-4 h-4 text-slate-400 dark:text-zinc-500" />
-                    <span class="flex-1">Налаштування</span>
-                </button>
-            </div>
-
-            <div class="border-t border-slate-100 dark:border-zinc-800 py-1">
-                <button class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
-                               text-red-600 dark:text-red-400
-                               hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
-                    <ArrowRightStartOnRectangleIcon class="w-4 h-4" />
-                    Вийти
-                </button>
+                </div>
             </div>
         </div>
-    }
-</div>
 
-@code {
-    private bool isOpen;
+        <div class="py-1">
+            <button disabled
+                    title="@L["layout.comingSoon"]"
+                    class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
+                           text-slate-400 dark:text-zinc-600 cursor-not-allowed">
+                <UserIcon class="w-4 h-4 shrink-0" />
+                <span class="flex-1">@L["profile.profile"]</span>
+                <LockClosedIcon class="w-3.5 h-3.5 shrink-0" />
+            </button>
 
-    private void ToggleMenu() => isOpen = !isOpen;
+            <button disabled
+                    title="@L["layout.comingSoon"]"
+                    class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
+                           text-slate-400 dark:text-zinc-600 cursor-not-allowed">
+                <BellIcon class="w-4 h-4 shrink-0" />
+                <span class="flex-1">@L["profile.notifications"]</span>
+                <LockClosedIcon class="w-3.5 h-3.5 shrink-0" />
+            </button>
 
-    private void OpenSettings() { }
-}
+            <button class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
+                           hover:bg-slate-50 dark:hover:bg-zinc-800/60 transition-colors">
+                <Cog6ToothIcon class="w-4 h-4 shrink-0 text-slate-400 dark:text-zinc-500" />
+                <span class="flex-1">@L["profile.settings"]</span>
+            </button>
+        </div>
+
+        <div class="border-t border-slate-100 dark:border-zinc-800 py-1">
+            <button class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-left
+                           text-red-600 dark:text-red-400
+                           hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
+                <ArrowRightStartOnRectangleIcon class="w-4 h-4 shrink-0" />
+                <span class="flex-1">@L["profile.logout"]</span>
+            </button>
+        </div>
+    </div>
+</details>

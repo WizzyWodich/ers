@@ -206,7 +206,18 @@ public static class Strings
 
             ["notFound.title"] = "Page not found",
             ["notFound.description"] = "The page you are looking for doesn't exist or has been moved.",
-            ["notFound.goHome"] = "Go to main page",        },
+            ["notFound.goHome"] = "Go to main page",
+
+            ["profile.profile"] = "Profile",
+            ["profile.notifications"] = "Notifications",
+            ["profile.settings"] = "Settings",
+            ["profile.logout"] = "Log out",
+
+            ["role.dispatcher"] = "Dispatcher",
+            ["role.admin"] = "Administrator",
+
+
+        },
 
         [Language.Uk] = new()
         {
@@ -412,6 +423,16 @@ public static class Strings
             ["notFound.title"] = "Сторінку не знайдено",
             ["notFound.description"] = "Сторінка, яку ви шукаєте, не існує або була переміщена.",
             ["notFound.goHome"] = "На головну",
+
+            ["profile.profile"] = "Профіль",
+            ["profile.notifications"] = "Повідомлення",
+            ["profile.settings"] = "Налаштування",
+            ["profile.logout"] = "Вийти",
+
+            ["role.dispatcher"] = "Диспетчер",
+            ["role.admin"] = "Адміністратор",
+
+
         }
     };
 }

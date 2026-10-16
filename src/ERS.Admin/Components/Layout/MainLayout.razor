@@ -8,7 +8,7 @@
 <div @key="L.Current"
      class="h-screen flex bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 transition-colors duration-300">
 
-    <aside class="w-60 shrink-0 h-screen overflow-y-auto
+    <aside class="w-60 shrink-0 h-screen
                   border-r border-slate-200 dark:border-zinc-900
                   bg-white dark:bg-zinc-950 flex flex-col transition-colors">
 
@@ -36,16 +36,7 @@
                 <ThemeToggle />
             </div>
 
-            <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg
-                        hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer">
-                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-[10px] font-semibold text-white">
-                    ДС
-                </div>
-                <div class="min-w-0 flex-1">
-                    <p class="text-xs font-medium truncate">@L["layout.dispatcher"]</p>
-                    <p class="text-[10px] text-slate-500 dark:text-zinc-500 truncate">dispatcher@college.ua</p>
-                </div>
-            </div>
+            <ProfileMenu />
         </div>
     </aside>
 
