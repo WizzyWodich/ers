@@ -2,9 +2,11 @@
 
 @if (IsOpen)
 {
+    <div class="fixed inset-0 z-40 bg-slate-900/30 dark:bg-black/30 animate-fade-in"
+         style="backdrop-filter: blur(24px) saturate(80%); -webkit-backdrop-filter: blur(24px) saturate(80%);"
+         @onclick="Close"></div>
+
     <div class="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 overflow-y-auto">
-        <div class="absolute inset-0 bg-slate-900/50 dark:bg-black/70 backdrop-blur-sm animate-fade-in"
-             @onclick="Close"></div>
 
         <div class="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-2xl shadow-black/20 animate-modal-in">
 
@@ -89,17 +91,24 @@
                         @L["modal.pairs"]
                     </label>
 
-                    <div class="flex items-center gap-3 mb-2">
-                        <label class="flex items-center gap-1.5 cursor-pointer">
-                            <input type="radio" name="pm" checked="@(!isPairRange)" @onchange="() => isPairRange = false"
-                                   class="w-3.5 h-3.5 accent-blue-500" />
-                            <span class="text-sm">@L["modal.pairOne"]</span>
-                        </label>
-                        <label class="flex items-center gap-1.5 cursor-pointer">
-                            <input type="radio" name="pm" checked="@isPairRange" @onchange="() => isPairRange = true"
-                                   class="w-3.5 h-3.5 accent-blue-500" />
-                            <span class="text-sm">@L["modal.pairRange"]</span>
-                        </label>
+                    <div class="inline-flex rounded-lg border border-slate-200 dark:border-zinc-800 p-0.5
+                                bg-slate-50 dark:bg-zinc-950 mb-3">
+                        <button type="button"
+                                @onclick="() => isPairRange = false"
+                                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200
+                                       @(!isPairRange
+                                           ? "bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-sm"
+                                           : "text-slate-500 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200")">
+                            @L["modal.pairOne"]
+                        </button>
+                        <button type="button"
+                                @onclick="() => isPairRange = true"
+                                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200
+                                       @(isPairRange
+                                           ? "bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-sm"
+                                           : "text-slate-500 dark:text-zinc-500 hover:text-slate-900 dark:hover:text-zinc-200")">
+                            @L["modal.pairRange"]
+                        </button>
                     </div>
 
                     @if (!isPairRange)
@@ -107,7 +116,10 @@
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-slate-500 dark:text-zinc-500">@L["modal.pairLabel"]</span>
                             <input type="number" min="1" max="7" @bind="PairFrom"
-                                   class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                                   class="w-20 px-3 py-2 rounded-lg text-sm
+                                          bg-white dark:bg-zinc-950
+                                          border border-slate-200 dark:border-zinc-800
+                                          focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
                         </div>
                     }
                     else
@@ -115,10 +127,16 @@
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-slate-500 dark:text-zinc-500">@L["modal.from"]</span>
                             <input type="number" min="1" max="7" @bind="PairFrom"
-                                   class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                                   class="w-20 px-3 py-2 rounded-lg text-sm
+                                          bg-white dark:bg-zinc-950
+                                          border border-slate-200 dark:border-zinc-800
+                                          focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
                             <span class="text-sm text-slate-500 dark:text-zinc-500">@L["modal.to"]</span>
                             <input type="number" min="1" max="7" @bind="PairTo"
-                                   class="w-20 px-3 py-2 rounded-lg text-sm bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
+                                   class="w-20 px-3 py-2 rounded-lg text-sm
+                                          bg-white dark:bg-zinc-950
+                                          border border-slate-200 dark:border-zinc-800
+                                          focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
                         </div>
                     }
                 </section>
