@@ -16,7 +16,7 @@
     <PackageReference Include="ClosedXML" Version="0.105.1" />
   </ItemGroup>
 
-  <Target Name="BuildTailwind" BeforeTargets="Build">
+  <Target Name="BuildTailwind" BeforeTargets="Build" Condition="Exists('tailwindcss.exe')">
     <Exec Command=".\tailwindcss.exe -i .\wwwroot\css\app.css -o .\wwwroot\css\app.min.css --minify" />
   </Target>
 
