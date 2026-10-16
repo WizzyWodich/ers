@@ -197,7 +197,16 @@ public static class Strings
 
             ["reconnect.reconnecting"] = "Reconnecting to ERS...",
             ["reconnect.retry"] = "Try again",
-        },
+
+            ["error.title"] = "Something went wrong",
+            ["error.description"] = "An error occurred while processing your request. Please try again or return to the main page.",
+            ["error.goHome"] = "Go to main page",
+            ["error.reload"] = "Reload page",
+            ["error.requestId"] = "Request ID",
+
+            ["notFound.title"] = "Page not found",
+            ["notFound.description"] = "The page you are looking for doesn't exist or has been moved.",
+            ["notFound.goHome"] = "Go to main page",        },
 
         [Language.Uk] = new()
         {
@@ -393,6 +402,16 @@ public static class Strings
 
             ["reconnect.reconnecting"] = "Відновлення з'єднання з ERS...",
             ["reconnect.retry"] = "Спробувати ще",
+
+            ["error.title"] = "Щось пішло не так",
+            ["error.description"] = "Під час обробки запиту сталася помилка. Спробуйте ще раз або поверніться на головну.",
+            ["error.goHome"] = "На головну",
+            ["error.reload"] = "Оновити сторінку",
+            ["error.requestId"] = "ID запиту",
+
+            ["notFound.title"] = "Сторінку не знайдено",
+            ["notFound.description"] = "Сторінка, яку ви шукаєте, не існує або була переміщена.",
+            ["notFound.goHome"] = "На головну",
         }
     };
 }

@@ -33,7 +33,9 @@
 
         if (stored == "dark")
             isDarkMode = true;
-        else if (string.IsNullOrEmpty(stored))
+        else if (stored == "light")
+            isDarkMode = false;
+        else
             isDarkMode = await JS.InvokeAsync<bool>("ersAdminTheme.isSystemDark");
 
         await JS.InvokeVoidAsync("ersAdminTheme.apply", isDarkMode);

@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @implements IDisposable
 @inject Localizer L
+@inject IJSRuntime JS
 
 <MobileBlock />
 
@@ -57,6 +58,26 @@
     protected override void OnInitialized()
     {
         L.OnChange += OnLanguageChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        var stored = await JS.InvokeAsync<string?>("ersAdminTheme.getStored");
+
+        if (stored == "dark")
+        {
+            await JS.InvokeVoidAsync("ersAdminTheme.apply", true);
+        }
+        else if (string.IsNullOrEmpty(stored))
+        {
+            var isDark = await JS.InvokeAsync<bool>("ersAdminTheme.isSystemDark");
+            if (isDark)
+            {
+                await JS.InvokeVoidAsync("ersAdminTheme.apply", true);
+            }
+        }
     }
 
     private void OnLanguageChanged()
