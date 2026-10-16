@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+    --color-white: #FBF9F5;
     --color-slate-50: #F5F2EB;
     --color-slate-100: #EDE8DE;
     --color-slate-200: #DED5C5;
@@ -99,7 +100,7 @@ dialog.ers-reconnect {
     margin: 0;
     padding: 0;
     border: none;
-    background: #f8fafc;
+    background: #F5F2EB;
     color: inherit;
     overflow: hidden;
 }
@@ -132,12 +133,12 @@ dialog.ers-reconnect[open] {
     font-weight: 800;
     letter-spacing: 0.4em;
     padding-left: 0.4em;
-    color: #0f172a;
+    color: #57534E;
     animation: ers-pulse 1.8s ease-in-out infinite;
 }
 
 html.dark .ers-reconnect-logo {
-    color: #f4f4f5;
+    color: #A8A29E;
 }
 
 .ers-reconnect-text {
