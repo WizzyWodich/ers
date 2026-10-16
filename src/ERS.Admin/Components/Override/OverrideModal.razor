@@ -8,13 +8,10 @@
 
         <div class="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-2xl shadow-black/20 animate-modal-in">
 
-            @* Шапка *@
             <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-zinc-800">
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 dark:text-blue-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
+                        <PlusIcon class="w-4 h-4 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
                         <h2 class="text-base font-semibold leading-tight">@L["modal.title"]</h2>
@@ -26,16 +23,12 @@
                                text-slate-400 dark:text-zinc-500
                                hover:bg-slate-100 dark:hover:bg-zinc-800
                                hover:text-slate-700 dark:hover:text-zinc-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
+                    <XMarkIcon class="w-4 h-4" />
                 </button>
             </div>
 
-            @* Тело *@
             <div class="px-5 py-5 space-y-6">
 
-                @* 1. Группы *@
                 <section>
                     <div class="flex items-center justify-between mb-2">
                         <label class="text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
@@ -77,7 +70,6 @@
                     }
                 </section>
 
-                @* 2. Дата *@
                 <section>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">
                         @L["modal.date"]
@@ -92,7 +84,6 @@
                                   transition-colors" />
                 </section>
 
-                @* 3. Пары *@
                 <section>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">
                         @L["modal.pairs"]
@@ -132,7 +123,6 @@
                     }
                 </section>
 
-                @* 4. Тип замены *@
                 <section>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">
                         @L["modal.action"]
@@ -146,19 +136,41 @@
                                            @(sel
                                                ? "bg-blue-500/10 border-blue-500/40 text-blue-700 dark:text-blue-400"
                                                : "bg-white dark:bg-zinc-950 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-zinc-700")">
-                                <span class="text-base shrink-0">@t.Icon</span>
+                                @switch (t.IconKey)
+                                {
+                                    case "x":
+                                        <XMarkIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "user":
+                                        <UserIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "book":
+                                        <BookOpenIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "map":
+                                        <MapPinIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "arrow":
+                                        <ArrowRightIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "plus":
+                                        <PlusIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                    case "sun":
+                                        <SunIcon class="w-4 h-4 shrink-0" />
+                                        break;
+                                }
                                 <span class="truncate">@L[t.LabelKey]</span>
                             </button>
                         }
                     </div>
                 </section>
 
-                @* 5. Поля по типу *@
                 @if (OverrideType == "SubstituteTeacher")
                 {
                     <section class="space-y-3">
                         <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                            @L["modal.newTeacher"]
+                            @L["override.substituteTeacher"]
                         </label>
                         <div>
                             <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">@L["modal.oldTeacher"]</label>
@@ -180,7 +192,7 @@
                 {
                     <section class="space-y-3">
                         <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                            @L["modal.newSubject"]
+                            @L["override.substituteSubject"]
                         </label>
                         <div>
                             <label class="block text-xs text-slate-500 dark:text-zinc-400 mb-1.5">@L["modal.oldSubject"]</label>
@@ -249,7 +261,6 @@
                     </section>
                 }
 
-                @* 6. Причина *@
                 <section>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-2">
                         @L["modal.reason"]
@@ -265,14 +276,11 @@
                 </section>
             </div>
 
-            @* Футер с превью *@
             <div class="px-5 py-4 border-t border-slate-100 dark:border-zinc-800 space-y-3">
                 @if (CanCreate)
                 {
                     <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/5 border border-blue-500/20 text-sm text-blue-700 dark:text-blue-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 shrink-0">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                        </svg>
+                        <InformationCircleIcon class="w-4 h-4 shrink-0" />
                         <span>@PreviewText</span>
                     </div>
                 }
@@ -305,7 +313,7 @@
     [Parameter] public DateOnly? PreDate { get; set; }
 
     public sealed record GroupItem(string Id, string DisplayName);
-    public sealed record OverrideTypeItem(string Key, string LabelKey, string Icon);
+    public sealed record OverrideTypeItem(string Key, string LabelKey, string IconKey);
 
     private List<GroupItem> Groups { get; } = new()
     {
@@ -333,13 +341,13 @@
 
     private List<OverrideTypeItem> OverrideTypes { get; } = new()
     {
-        new("Cancel",            "override.cancel",            "✕"),
-        new("SubstituteTeacher", "override.substituteTeacher", "👤"),
-        new("SubstituteSubject", "override.substituteSubject", "📘"),
-        new("SubstituteRoom",    "override.substituteRoom",    "📍"),
-        new("Move",              "override.move",              "→"),
-        new("Add",               "override.add",               "+"),
-        new("FreeDay",           "override.freeDay",           "🏖"),
+        new("Cancel",            "override.cancel",            "x"),
+        new("SubstituteTeacher", "override.substituteTeacher", "user"),
+        new("SubstituteSubject", "override.substituteSubject", "book"),
+        new("SubstituteRoom",    "override.substituteRoom",    "map"),
+        new("Move",              "override.move",              "arrow"),
+        new("Add",               "override.add",               "plus"),
+        new("FreeDay",           "override.freeDay",           "sun"),
     };
 
     private HashSet<string> SelectedGroupIds { get; } = new();
