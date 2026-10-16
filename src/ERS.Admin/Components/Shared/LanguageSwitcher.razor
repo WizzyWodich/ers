@@ -34,38 +34,25 @@
             var browserLang = await JS.InvokeAsync<string>("ersAdminTheme.getBrowserLanguage");
 
             if (browserLang.StartsWith("uk", StringComparison.OrdinalIgnoreCase))
-            {
                 L.SetLanguage(Language.Uk);
-            }
             else
-            {
                 L.SetLanguage(Language.En);
-            }
         }
 
         StateHasChanged();
     }
 
-private async Task SetLang(Language lang)
-{
-    // Ничего не делаем, если язык уже выбран
-    if (L.Current == lang) return;
+    private async Task SetLang(Language lang)
+    {
+        if (L.Current == lang) return;
 
-    // 1. Показываем занавеску (fade in 250ms)
-    await JS.InvokeVoidAsync("ersLoader.show");
+        await JS.InvokeVoidAsync("ersLoader.show");
+        await Task.Delay(250);
 
-    // 2. Даём занавеске полностью проявиться
-    await Task.Delay(250);
+        L.SetLanguage(lang);
+        await JS.InvokeVoidAsync("localStorage.setItem", "ers-lang", Localizer.GetLanguageCode(lang));
 
-    // 3. Меняем язык — компоненты перерендерятся под занавеской
-    L.SetLanguage(lang);
-    await JS.InvokeVoidAsync("localStorage.setItem", "ers-lang", Localizer.GetLanguageCode(lang));
-
-    // 4. Держим занавеску ещё немного — чтобы пользователь «увидел» смену
-    await Task.Delay(150);
-
-    // 5. Убираем занавеску — плавно исчезнет
-    await JS.InvokeVoidAsync("ersLoader.hide");
+        await Task.Delay(150);
+        await JS.InvokeVoidAsync("ersLoader.hide");
+    }
 }
-
-   }

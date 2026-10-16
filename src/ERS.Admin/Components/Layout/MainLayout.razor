@@ -7,16 +7,13 @@
 <div @key="L.Current"
      class="h-screen flex bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 transition-colors duration-300">
 
-    @* Сайдбар — фиксированный, скроллится только если пунктов много *@
     <aside class="w-60 shrink-0 h-screen overflow-y-auto
                   border-r border-slate-200 dark:border-zinc-900
                   bg-white dark:bg-zinc-950 flex flex-col transition-colors">
 
         <div class="h-14 shrink-0 flex items-center gap-2.5 px-4 border-b border-slate-200 dark:border-zinc-900">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                </svg>
+                <CalendarDaysIcon class="w-4 h-4 text-white" />
             </div>
             <div class="min-w-0">
                 <h1 class="text-sm font-semibold leading-tight">@L["layout.brand"]</h1>
@@ -26,22 +23,18 @@
 
         <NavMenu />
 
-        @* Низ: язык + тема + пользователь — всегда виден *@
         <div class="shrink-0 border-t border-slate-200 dark:border-zinc-900 p-3 space-y-2">
 
-            @* Язык *@
             <div class="flex items-center justify-between px-2">
                 <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.language"]</span>
                 <LanguageSwitcher />
             </div>
 
-            @* Тема *@
             <div class="flex items-center justify-between px-2">
                 <span class="text-xs text-slate-500 dark:text-zinc-500">@L["layout.theme"]</span>
                 <ThemeToggle />
             </div>
 
-            @* Пользователь *@
             <div class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg
                         hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer">
                 <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-[10px] font-semibold text-white">

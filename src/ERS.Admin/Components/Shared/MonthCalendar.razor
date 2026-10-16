@@ -7,9 +7,7 @@
                        hover:bg-slate-100 dark:hover:bg-zinc-800
                        hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-            </svg>
+            <ChevronLeftIcon class="w-3.5 h-3.5" />
         </button>
         <span class="text-sm font-semibold capitalize">
             @L.MonthName(CurrentMonth.Month) @CurrentMonth.Year
@@ -19,9 +17,7 @@
                        hover:bg-slate-100 dark:hover:bg-zinc-800
                        hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <ChevronRightIcon class="w-3.5 h-3.5" />
         </button>
     </div>
 
@@ -45,7 +41,7 @@
             {
                 var isSelected = cell.Date == SelectedDate;
                 var isToday = cell.Date == Today;
-                var hasReplacements = cell.Date.Day == 14 || cell.Date.Day == 16; // мок
+                var hasReplacements = cell.Date.Day == 14 || cell.Date.Day == 16;
 
                 <button @onclick="() => OnDayClick.InvokeAsync(cell.Date)"
                         class="relative aspect-square rounded-lg text-sm font-medium

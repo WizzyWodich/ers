@@ -5,7 +5,7 @@
     {
         var isSelected = date == SelectedDate;
         var isToday = date == Today;
-        var hasReplacements = date.Day == 14 || date.Day == 16; // мок
+        var hasReplacements = date.Day == 14 || date.Day == 16;
 
         <button @onclick="() => OnDayClick.InvokeAsync(date)"
                 class="relative flex flex-col items-center gap-0.5 py-1.5
