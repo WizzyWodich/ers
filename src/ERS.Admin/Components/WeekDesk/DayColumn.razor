@@ -1,3 +1,5 @@
+@inject Localizer L
+
 <div class="flex flex-col rounded-xl border border-slate-200 dark:border-zinc-800
             bg-white dark:bg-zinc-900/40 overflow-hidden min-h-[300px]">
 
@@ -19,7 +21,7 @@
             }
         </div>
         <button @onclick="OnCopyDay"
-                title="Скопировать день на остальные"
+                title="@L["weekDesk.copyDay"]"
                 class="shrink-0 w-6 h-6 rounded flex items-center justify-center
                        text-slate-400 dark:text-zinc-600
                        hover:bg-slate-200 dark:hover:bg-zinc-800
@@ -43,7 +45,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto mb-1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                <span class="text-xs">Добавить</span>
+                <span class="text-xs">@L["weekDesk.add"]</span>
             </button>
         }
         else
@@ -64,7 +66,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                Добавить
+                @L["weekDesk.add"]
             </button>
         }
     </div>

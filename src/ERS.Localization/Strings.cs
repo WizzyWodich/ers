@@ -42,7 +42,6 @@ public static class Strings
             ["lang.en"] = "EN",
             ["lang.uk"] = "UK",
 
-            // ── Days ──
             ["day.monday"] = "Monday",
             ["day.tuesday"] = "Tuesday",
             ["day.wednesday"] = "Wednesday",
@@ -59,7 +58,6 @@ public static class Strings
             ["day.short.saturday"] = "Sat",
             ["day.short.sunday"] = "Sun",
 
-            // ── Months (genitive) ──
             ["month.1"] = "January",
             ["month.2"] = "February",
             ["month.3"] = "March",
@@ -73,7 +71,6 @@ public static class Strings
             ["month.11"] = "November",
             ["month.12"] = "December",
 
-            // ── Group page ──
             ["group.about"] = "About group",
             ["group.specialty"] = "Specialty",
             ["group.course"] = "Course",
@@ -88,12 +85,10 @@ public static class Strings
             ["group.createOverride"] = "Create override",
             ["group.print"] = "Print",
 
-            // ── Date navigator ──
             ["nav.prev"] = "Previous",
             ["nav.next"] = "Next",
             ["nav.today"] = "Today",
 
-            // ── Schedule table ──
             ["table.pair"] = "Pair",
             ["table.subject"] = "Subject",
             ["table.teacher"] = "Teacher",
@@ -106,88 +101,99 @@ public static class Strings
             ["table.cancelled"] = "Cancelled",
             ["table.added"] = "Added",
 
-            // ── Breaks ──
             ["break.short"] = "Break · {0} min",
             ["break.long"] = "Long break · {0} min",
 
-            // ── Group switcher ──
             ["switcher.searchGroups"] = "Search groups...",
             ["switcher.noGroups"] = "No groups found",
 
-            // ── Publish ──
             ["publish.button"] = "Publish ({0})",
             ["publish.title"] = "Publish {0} changes",
 
-
-            // ── Calendar ──
             ["calendar.week"] = "Week",
             ["calendar.month"] = "Month",
             ["calendar.prevMonth"] = "Previous month",
             ["calendar.nextMonth"] = "Next month",
 
-            // ── Override types ──
-["override.cancel"] = "Cancel",
-["override.substituteTeacher"] = "Substitute teacher",
-["override.substituteSubject"] = "Substitute subject",
-["override.substituteRoom"] = "Substitute room",
-["override.move"] = "Move",
-["override.add"] = "Add",
-["override.freeDay"] = "Free day",
+            ["override.cancel"] = "Cancel",
+            ["override.substituteTeacher"] = "Substitute teacher",
+            ["override.substituteSubject"] = "Substitute subject",
+            ["override.substituteRoom"] = "Substitute room",
+            ["override.move"] = "Move",
+            ["override.add"] = "Add",
+            ["override.freeDay"] = "Free day",
 
-// ── Override modal ──
-["modal.title"] = "New override",
-["modal.subtitle"] = "Schedule change",
-["modal.groups"] = "1. Groups",
-["modal.selectAll"] = "All",
-["modal.clearAll"] = "Clear",
-["modal.selectAtLeastOne"] = "Select at least one group",
-["modal.date"] = "2. Date",
-["modal.pairs"] = "3. Pairs",
-["modal.pairOne"] = "One pair",
-["modal.pairRange"] = "Range",
-["modal.pairLabel"] = "Pair:",
-["modal.from"] = "From",
-["modal.to"] = "to",
-["modal.action"] = "4. What to do",
+            ["modal.title"] = "New override",
+            ["modal.subtitle"] = "Schedule change",
+            ["modal.groups"] = "1. Groups",
+            ["modal.selectAll"] = "All",
+            ["modal.clearAll"] = "Clear",
+            ["modal.selectAtLeastOne"] = "Select at least one group",
+            ["modal.date"] = "2. Date",
+            ["modal.pairs"] = "3. Pairs",
+            ["modal.pairOne"] = "One pair",
+            ["modal.pairRange"] = "Range",
+            ["modal.pairLabel"] = "Pair:",
+            ["modal.from"] = "From",
+            ["modal.to"] = "to",
+            ["modal.action"] = "4. What to do",
 
-["modal.oldTeacher"] = "Old (optional)",
-["modal.newTeacher"] = "New",
-["modal.oldSubject"] = "Old (optional)",
-["modal.newSubject"] = "New",
-["modal.newRoom"] = "New room",
-["modal.moveTo"] = "Move to pair:",
+            ["modal.oldTeacher"] = "Old (optional)",
+            ["modal.newTeacher"] = "New",
+            ["modal.oldSubject"] = "Old (optional)",
+            ["modal.newSubject"] = "New",
+            ["modal.newRoom"] = "New room",
+            ["modal.moveTo"] = "Move to pair:",
 
-["modal.subject"] = "Subject",
-["modal.teacherLabel"] = "Teacher",
-["modal.roomLabel"] = "Room",
+            ["modal.subject"] = "Subject",
+            ["modal.teacherLabel"] = "Teacher",
+            ["modal.roomLabel"] = "Room",
 
-["modal.notSpecified"] = "— not specified —",
-["modal.selectPlaceholder"] = "— select —",
+            ["modal.notSpecified"] = "— not specified —",
+            ["modal.selectPlaceholder"] = "— select —",
 
-["modal.reason"] = "6. Reason (optional)",
-["modal.reasonPlaceholder"] = "Teacher on sick leave, room occupied, ...",
+            ["modal.reason"] = "6. Reason (optional)",
+            ["modal.reasonPlaceholder"] = "Teacher on sick leave, room occupied, ...",
 
-["modal.willCreate"] = "Will create",
-["modal.overrideOne"] = "override",
-["modal.overrideMany"] = "overrides",
-["modal.groupOne"] = "group",
-["modal.groupMany"] = "groups",
-["modal.pairsWord"] = "pairs",
+            ["modal.willCreate"] = "Will create",
+            ["modal.overrideOne"] = "override",
+            ["modal.overrideMany"] = "overrides",
+            ["modal.groupOne"] = "group",
+            ["modal.groupMany"] = "groups",
+            ["modal.pairsWord"] = "pairs",
 
-["modal.cancel"] = "Cancel",
-["modal.create"] = "Create drafts",
+            ["modal.cancel"] = "Cancel",
+            ["modal.create"] = "Create drafts",
 
-["mobile.title"] = "Desktop only",
-["mobile.description"] = "The dispatcher panel is not available on mobile devices. Please use a desktop computer or tablet.",
+            ["mobile.title"] = "Desktop only",
+            ["mobile.description"] = "The dispatcher panel is not available on mobile devices. Please use a desktop computer or tablet.",
 
-["theme.toggle"] = "Toggle theme",
+            ["theme.toggle"] = "Toggle theme",
 
-["bells.title"] = "Bell schedule",
-["bells.pair"] = "Pair",
-["bells.break"] = "Break",
-["bells.bigBreak"] = "Long break",
-["bells.min"] = "min",
+            ["bells.title"] = "Bell schedule",
+            ["bells.pair"] = "Pair",
+            ["bells.break"] = "Break",
+            ["bells.bigBreak"] = "Long break",
+            ["bells.min"] = "min",
 
+            ["overrides.title"] = "Overrides",
+            ["overrides.subtitle"] = "Drafts and published packages",
+            ["overrides.newBatch"] = "New package",
+            ["overrides.empty"] = "No overrides yet",
+            ["overrides.emptyHint"] = "All override packages will appear here — drafts and published.",
+            ["overrides.filter.all"] = "All",
+            ["overrides.filter.drafts"] = "Drafts",
+            ["overrides.filter.published"] = "Published",
+
+            ["weekDesk.title"] = "Week overrides",
+            ["weekDesk.createBatch"] = "Create package",
+            ["weekDesk.publishAll"] = "Publish all",
+            ["weekDesk.overrides"] = "overrides",
+            ["weekDesk.groups"] = "groups",
+            ["weekDesk.add"] = "Add",
+            ["weekDesk.copyDay"] = "Copy day to others",
+            ["weekDesk.duplicate"] = "Duplicate to all days",
+            ["weekDesk.draftInfo"] = "{0} overrides in draft. After publishing, students will see changes immediately.",
         },
 
         [Language.Uk] = new()
@@ -228,7 +234,6 @@ public static class Strings
             ["lang.en"] = "EN",
             ["lang.uk"] = "UK",
 
-            // ── Days ──
             ["day.monday"] = "Понеділок",
             ["day.tuesday"] = "Вівторок",
             ["day.wednesday"] = "Середа",
@@ -245,7 +250,6 @@ public static class Strings
             ["day.short.saturday"] = "Сб",
             ["day.short.sunday"] = "Нд",
 
-            // ── Months ──
             ["month.1"] = "січня",
             ["month.2"] = "лютого",
             ["month.3"] = "березня",
@@ -259,7 +263,6 @@ public static class Strings
             ["month.11"] = "листопада",
             ["month.12"] = "грудня",
 
-            // ── Group page ──
             ["group.about"] = "Про групу",
             ["group.specialty"] = "Спеціальність",
             ["group.course"] = "Курс",
@@ -274,12 +277,10 @@ public static class Strings
             ["group.createOverride"] = "Створити заміну",
             ["group.print"] = "Друк",
 
-            // ── Date navigator ──
             ["nav.prev"] = "Попередній",
             ["nav.next"] = "Наступний",
             ["nav.today"] = "Сьогодні",
 
-            // ── Schedule table ──
             ["table.pair"] = "Пара",
             ["table.subject"] = "Дисципліна",
             ["table.teacher"] = "Викладач",
@@ -292,87 +293,101 @@ public static class Strings
             ["table.cancelled"] = "Скасовано",
             ["table.added"] = "Додано",
 
-            // ── Breaks ──
             ["break.short"] = "Перерва · {0} хв",
             ["break.long"] = "Велика перерва · {0} хв",
 
-            // ── Group switcher ──
             ["switcher.searchGroups"] = "Пошук груп...",
             ["switcher.noGroups"] = "Групи не знайдено",
 
-            // ── Publish ──
             ["publish.button"] = "Опублікувати ({0})",
             ["publish.title"] = "Опублікувати {0} змін",
 
-            // ── Calendar ──
             ["calendar.week"] = "Тиждень",
             ["calendar.month"] = "Місяць",
             ["calendar.prevMonth"] = "Попередній місяць",
             ["calendar.nextMonth"] = "Наступний місяць",
 
-            // ── Override types ──
-["override.cancel"] = "Скасувати",
-["override.substituteTeacher"] = "Замінити викладача",
-["override.substituteSubject"] = "Замінити предмет",
-["override.substituteRoom"] = "Замінити аудиторію",
-["override.move"] = "Перенести",
-["override.add"] = "Додати",
-["override.freeDay"] = "Вільний день",
+            ["override.cancel"] = "Скасувати",
+            ["override.substituteTeacher"] = "Замінити викладача",
+            ["override.substituteSubject"] = "Замінити предмет",
+            ["override.substituteRoom"] = "Замінити аудиторію",
+            ["override.move"] = "Перенести",
+            ["override.add"] = "Додати",
+            ["override.freeDay"] = "Вільний день",
 
-// ── Override modal ──
-["modal.title"] = "Нова заміна",
-["modal.subtitle"] = "Зміна в розкладі",
-["modal.groups"] = "1. Групи",
-["modal.selectAll"] = "Усі",
-["modal.clearAll"] = "Зняти",
-["modal.selectAtLeastOne"] = "Оберіть хоча б одну групу",
-["modal.date"] = "2. Дата",
-["modal.pairs"] = "3. Пари",
-["modal.pairOne"] = "Одна пара",
-["modal.pairRange"] = "Діапазон",
-["modal.pairLabel"] = "Пара:",
-["modal.from"] = "З",
-["modal.to"] = "по",
-["modal.action"] = "4. Що робимо",
+            // ── Override modal ──
+            ["modal.title"] = "Нова заміна",
+            ["modal.subtitle"] = "Зміна в розкладі",
+            ["modal.groups"] = "1. Групи",
+            ["modal.selectAll"] = "Усі",
+            ["modal.clearAll"] = "Зняти",
+            ["modal.selectAtLeastOne"] = "Оберіть хоча б одну групу",
+            ["modal.date"] = "2. Дата",
+            ["modal.pairs"] = "3. Пари",
+            ["modal.pairOne"] = "Одна пара",
+            ["modal.pairRange"] = "Діапазон",
+            ["modal.pairLabel"] = "Пара:",
+            ["modal.from"] = "З",
+            ["modal.to"] = "по",
+            ["modal.action"] = "4. Що робимо",
 
-["modal.oldTeacher"] = "Старий (необов'язково)",
-["modal.newTeacher"] = "Новий",
-["modal.oldSubject"] = "Старий (необов'язково)",
-["modal.newSubject"] = "Новий",
-["modal.newRoom"] = "Нова аудиторія",
-["modal.moveTo"] = "На пару:",
+            ["modal.oldTeacher"] = "Старий (необов'язково)",
+            ["modal.newTeacher"] = "Новий",
+            ["modal.oldSubject"] = "Старий (необов'язково)",
+            ["modal.newSubject"] = "Новий",
+            ["modal.newRoom"] = "Нова аудиторія",
+            ["modal.moveTo"] = "На пару:",
 
-["modal.subject"] = "Предмет",
-["modal.teacherLabel"] = "Викладач",
-["modal.roomLabel"] = "Аудиторія",
+            ["modal.subject"] = "Предмет",
+            ["modal.teacherLabel"] = "Викладач",
+            ["modal.roomLabel"] = "Аудиторія",
 
-["modal.notSpecified"] = "— не вказано —",
-["modal.selectPlaceholder"] = "— оберіть —",
+            ["modal.notSpecified"] = "— не вказано —",
+            ["modal.selectPlaceholder"] = "— оберіть —",
 
-["modal.reason"] = "6. Причина (необов'язково)",
-["modal.reasonPlaceholder"] = "Викладач на лікарняному, аудиторія зайнята, ...",
+            ["modal.reason"] = "6. Причина (необов'язково)",
+            ["modal.reasonPlaceholder"] = "Викладач на лікарняному, аудиторія зайнята, ...",
 
-["modal.willCreate"] = "Буде створено",
-["modal.overrideOne"] = "заміна",
-["modal.overrideMany"] = "замін",
-["modal.groupOne"] = "група",
-["modal.groupMany"] = "груп",
-["modal.pairsWord"] = "пар",
+            ["modal.willCreate"] = "Буде створено",
+            ["modal.overrideOne"] = "заміна",
+            ["modal.overrideMany"] = "замін",
+            ["modal.groupOne"] = "група",
+            ["modal.groupMany"] = "груп",
+            ["modal.pairsWord"] = "пар",
 
-["modal.cancel"] = "Скасувати",
-["modal.create"] = "Створити чернетки",
+            ["modal.cancel"] = "Скасувати",
+            ["modal.create"] = "Створити чернетки",
 
 
-["mobile.title"] = "Лише для комп'ютера",
-["mobile.description"] = "Панель диспетчера недоступна на мобільних пристроях. Будь ласка, скористайтеся комп'ютером або планшетом.",
+            ["mobile.title"] = "Лише для комп'ютера",
+            ["mobile.description"] = "Панель диспетчера недоступна на мобільних пристроях. Будь ласка, скористайтеся комп'ютером або планшетом.",
 
-["theme.toggle"] = "Перемкнути тему",
+            ["theme.toggle"] = "Перемкнути тему",
 
-["bells.title"] = "Розклад дзвінків",
-["bells.pair"] = "Пара",
-["bells.break"] = "Перерва",
-["bells.bigBreak"] = "Велика перерва",
-["bells.min"] = "хв",
+            ["bells.title"] = "Розклад дзвінків",
+            ["bells.pair"] = "Пара",
+            ["bells.break"] = "Перерва",
+            ["bells.bigBreak"] = "Велика перерва",
+            ["bells.min"] = "хв",
+
+            ["overrides.title"] = "Заміни",
+            ["overrides.subtitle"] = "Чернетки та опубліковані пакети",
+            ["overrides.newBatch"] = "Новий пакет",
+            ["overrides.empty"] = "Поки немає замін",
+            ["overrides.emptyHint"] = "Тут з'являться всі пакети замін — чернетки та опубліковані.",
+            ["overrides.filter.all"] = "Усі",
+            ["overrides.filter.drafts"] = "Чернетки",
+            ["overrides.filter.published"] = "Опубліковані",
+
+            ["weekDesk.title"] = "Заміни на тиждень",
+            ["weekDesk.createBatch"] = "Створити пакет",
+            ["weekDesk.publishAll"] = "Опублікувати все",
+            ["weekDesk.overrides"] = "замін",
+            ["weekDesk.groups"] = "груп",
+            ["weekDesk.add"] = "Додати",
+            ["weekDesk.copyDay"] = "Скопіювати день на інші",
+            ["weekDesk.duplicate"] = "Продублювати на всі дні",
+            ["weekDesk.draftInfo"] = "{0} замін у чернетці. Після публікації студенти побачать зміни одразу.",
         }
     };
 }
