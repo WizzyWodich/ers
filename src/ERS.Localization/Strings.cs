@@ -194,6 +194,9 @@ public static class Strings
             ["weekDesk.copyDay"] = "Copy day to others",
             ["weekDesk.duplicate"] = "Duplicate to all days",
             ["weekDesk.draftInfo"] = "{0} overrides in draft. After publishing, students will see changes immediately.",
+
+            ["reconnect.reconnecting"] = "Reconnecting to ERS...",
+            ["reconnect.retry"] = "Try again",
         },
 
         [Language.Uk] = new()
@@ -315,7 +318,6 @@ public static class Strings
             ["override.add"] = "Додати",
             ["override.freeDay"] = "Вільний день",
 
-            // ── Override modal ──
             ["modal.title"] = "Нова заміна",
             ["modal.subtitle"] = "Зміна в розкладі",
             ["modal.groups"] = "1. Групи",
@@ -388,6 +390,9 @@ public static class Strings
             ["weekDesk.copyDay"] = "Скопіювати день на інші",
             ["weekDesk.duplicate"] = "Продублювати на всі дні",
             ["weekDesk.draftInfo"] = "{0} замін у чернетці. Після публікації студенти побачать зміни одразу.",
+
+            ["reconnect.reconnecting"] = "Відновлення з'єднання з ERS...",
+            ["reconnect.retry"] = "Спробувати ще",
         }
     };
 }

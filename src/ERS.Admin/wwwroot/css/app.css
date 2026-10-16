@@ -42,3 +42,135 @@ html.theme-transition *::after {
 .animate-modal-in {
     animation: modal-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+@keyframes ers-pulse {
+    0%, 100% { opacity: 0.3; }
+    50%      { opacity: 1; }
+}
+
+@keyframes ers-dot {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-5px);
+    }
+}
+
+.ers-loader-dots {
+    display: flex;
+    gap: 7px;
+}
+
+.ers-loader-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3b82f6;
+    animation: ers-dot 1.4s ease-in-out infinite;
+}
+
+.ers-loader-dots span:nth-child(2) {
+    animation-delay: 0.15s;
+    background: #6366f1;
+}
+
+.ers-loader-dots span:nth-child(3) {
+    animation-delay: 0.3s;
+    background: #8b5cf6;
+}
+
+dialog.ers-reconnect {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: #f8fafc;
+    color: inherit;
+    overflow: hidden;
+}
+
+html.dark dialog.ers-reconnect {
+    background: #09090b;
+}
+
+dialog.ers-reconnect::backdrop {
+    background: transparent;
+}
+
+dialog.ers-reconnect[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ers-reconnect-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+}
+
+.ers-reconnect-logo {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    padding-left: 0.4em;
+    color: #0f172a;
+    animation: ers-pulse 1.8s ease-in-out infinite;
+}
+
+html.dark .ers-reconnect-logo {
+    color: #f4f4f5;
+}
+
+.ers-reconnect-text {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin: 0;
+    text-align: center;
+}
+
+html.dark .ers-reconnect-text {
+    color: #52525b;
+}
+
+.ers-reconnect-retry {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.4);
+}
+
+.ers-reconnect-retry:hover {
+    background: #2563eb;
+}
+
+dialog.ers-reconnect.components-reconnect-failed #components-reconnect-button,
+dialog.ers-reconnect.components-reconnect-rejected #components-reconnect-button {
+    display: inline-flex;
+}
