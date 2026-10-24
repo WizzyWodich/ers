@@ -219,7 +219,7 @@ public static class Strings
             ["layout.brand"] = "ERS Student",
             ["layout.brandSubtitle"] = "My schedule",
 
-            ["login.title"] = "Welcome back",
+            ["login.title"] = "Sign in to ERS", 
             ["login.subtitle"] = "Sign in to view your schedule",
             ["login.email"] = "Email",
             ["login.password"] = "Password",
@@ -228,6 +228,7 @@ public static class Strings
             ["login.invalid"] = "Invalid email or password",
             ["login.noAccount"] = "Don't have an account?",
             ["login.register"] = "Sign up",
+            ["login.forgotPassword"] = "Forgot password?",
 
             ["register.title"] = "Create an account",
             ["register.subtitle"] = "Join ERS to view your schedule",
@@ -459,7 +460,7 @@ public static class Strings
             ["layout.brand"] = "ERS Студент",
             ["layout.brandSubtitle"] = "Мій розклад",
 
-            ["login.title"] = "З поверненням",
+            ["login.title"] = "Вхід до ERS",
             ["login.subtitle"] = "Увійдіть, щоб переглянути розклад",
             ["login.email"] = "Електронна пошта",
             ["login.password"] = "Пароль",
@@ -468,6 +469,7 @@ public static class Strings
             ["login.invalid"] = "Неправильна пошта або пароль",
             ["login.noAccount"] = "Немає акаунту?",
             ["login.register"] = "Зареєструватися",
+            ["login.forgotPassword"] = "Забули пароль?",
 
             ["register.title"] = "Створення акаунту",
             ["register.subtitle"] = "Приєднуйтесь до ERS для перегляду розкладу",
@@ -481,6 +483,7 @@ public static class Strings
             ["register.loading"] = "Створення...",
             ["register.hasAccount"] = "Вже є акаунт?",
             ["register.login"] = "Увійти",
+            
 
         }
     };

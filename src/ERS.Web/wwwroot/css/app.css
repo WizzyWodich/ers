@@ -4,10 +4,12 @@
 
 
 @theme {
-    --color-white: #FBF9F5;
-    --color-slate-50: #F5F2EB;
-    --color-slate-100: #EDE8DE;
-    --color-slate-200: #DED5C5;
+    --color-white: #F8F5EE; 
+    
+    --color-slate-50: #F3EFE6; 
+    
+    --color-slate-100: #E8E3D7;
+    --color-slate-200: #DCD5C6;
 }
 
 @keyframes slide-in {

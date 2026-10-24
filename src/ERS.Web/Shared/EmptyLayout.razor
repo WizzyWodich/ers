@@ -1,14 +1,24 @@
 @inherits LayoutComponentBase
-@inject IJSRuntime JS
+@implements IDisposable
+@inject Localizer L
 
-@Body
+<div @key="L.Current" class="min-h-screen">
+    @Body
+</div>
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-            await JS.InvokeVoidAsync("ersLoader.hide");
-        }
+        L.OnChange += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        L.OnChange -= OnLanguageChanged;
     }
 }
