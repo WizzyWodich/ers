@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@inject IJSRuntime JS
 @implements IDisposable
 @inject Localizer L
 
@@ -33,6 +34,14 @@
 </div>
 
 @code {
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        await JS.InvokeVoidAsync("ersLoader.hide");
+        
+    }
     protected override void OnInitialized()
     {
         L.OnChange += OnLanguageChanged;
