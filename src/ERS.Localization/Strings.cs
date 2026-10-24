@@ -216,7 +216,31 @@ public static class Strings
             ["role.dispatcher"] = "Dispatcher",
             ["role.admin"] = "Administrator",
 
+            ["layout.brand"] = "ERS Student",
+            ["layout.brandSubtitle"] = "My schedule",
 
+            ["login.title"] = "Welcome back",
+            ["login.subtitle"] = "Sign in to view your schedule",
+            ["login.email"] = "Email",
+            ["login.password"] = "Password",
+            ["login.submit"] = "Sign in",
+            ["login.loading"] = "Signing in...",
+            ["login.invalid"] = "Invalid email or password",
+            ["login.noAccount"] = "Don't have an account?",
+            ["login.register"] = "Sign up",
+
+            ["register.title"] = "Create an account",
+            ["register.subtitle"] = "Join ERS to view your schedule",
+            ["register.firstName"] = "First name",
+            ["register.lastName"] = "Last name",
+            ["register.middleName"] = "Middle name (optional)",
+            ["register.email"] = "Email",
+            ["register.password"] = "Password",
+            ["register.group"] = "Group",
+            ["register.submit"] = "Create account",
+            ["register.loading"] = "Creating...",
+            ["register.hasAccount"] = "Already have an account?",
+            ["register.login"] = "Sign in",
         },
 
         [Language.Uk] = new()
@@ -432,6 +456,31 @@ public static class Strings
             ["role.dispatcher"] = "Диспетчер",
             ["role.admin"] = "Адміністратор",
 
+            ["layout.brand"] = "ERS Студент",
+            ["layout.brandSubtitle"] = "Мій розклад",
+
+            ["login.title"] = "З поверненням",
+            ["login.subtitle"] = "Увійдіть, щоб переглянути розклад",
+            ["login.email"] = "Електронна пошта",
+            ["login.password"] = "Пароль",
+            ["login.submit"] = "Увійти",
+            ["login.loading"] = "Вхід...",
+            ["login.invalid"] = "Неправильна пошта або пароль",
+            ["login.noAccount"] = "Немає акаунту?",
+            ["login.register"] = "Зареєструватися",
+
+            ["register.title"] = "Створення акаунту",
+            ["register.subtitle"] = "Приєднуйтесь до ERS для перегляду розкладу",
+            ["register.firstName"] = "Ім'я",
+            ["register.lastName"] = "Прізвище",
+            ["register.middleName"] = "По батькові (необов'язково)",
+            ["register.email"] = "Електронна пошта",
+            ["register.password"] = "Пароль",
+            ["register.group"] = "Група",
+            ["register.submit"] = "Створити акаунт",
+            ["register.loading"] = "Створення...",
+            ["register.hasAccount"] = "Вже є акаунт?",
+            ["register.login"] = "Увійти",
 
         }
     };

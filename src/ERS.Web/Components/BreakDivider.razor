@@ -1,14 +1,27 @@
-<div class="flex items-center gap-3 py-1 px-2">
-    <div class="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
-    <div class="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        <span>@Duration мин</span>
+@inject Localizer L
+
+<div class="relative flex items-center py-1 px-2 lg:px-4">
+    
+    <div class="flex-1 h-px bg-slate-200 dark:bg-zinc-800/60"></div>
+
+    <div class="flex items-center gap-2 px-3 shrink-0">
+        <ClockIcon class="@($"w-3.5 h-3.5 {IconColorClass}")" />
+        <span class="@($"text-[10px] lg:text-xs font-medium uppercase tracking-wider {TextColorClass}")">
+            @(Type == "Big" ? L["bells.bigBreak"] : L["bells.break"]) · @Duration @L["bells.min"]
+        </span>
     </div>
-    <div class="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
+
+    <div class="flex-1 h-px bg-slate-200 dark:bg-zinc-800/60"></div>
 </div>
 
 @code {
     [Parameter] public int Duration { get; set; }
+    
+    [Parameter] public string Type { get; set; } = "Small"; 
+
+    private string IconColorClass => Type == "Big" ? "text-violet-500" : "text-blue-500";
+    
+    private string TextColorClass => Type == "Big" 
+        ? "text-violet-600 dark:text-violet-400" 
+        : "text-blue-600 dark:text-blue-400/80";
 }

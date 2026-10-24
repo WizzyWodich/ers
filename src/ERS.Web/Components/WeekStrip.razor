@@ -1,39 +1,49 @@
+@inject Localizer L
+
 <div class="grid grid-cols-7">
-    @foreach (var day in Days)
+    @foreach (var date in Days)
     {
-        <button class="relative flex flex-col items-center py-3
-                       hover:bg-slate-50 dark:hover:bg-zinc-900/60
-                       transition-colors
-                       @(day.IsSelected ? "bg-blue-50 dark:bg-blue-950/30" : "")">
-            <span class="text-xs sm:text-[10px] font-medium text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                @day.Short
+        var isSelected = date == SelectedDate;
+        var isToday = date == Today;
+        var hasReplacements = date.Day == 14 || date.Day == 16; // мок
+
+        <button @onclick="() => OnDayClick.InvokeAsync(date)"
+                class="relative flex flex-col items-center gap-0.5 py-1.5
+                       hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition-colors
+                       @(isSelected ? "bg-blue-500/10" : "")">
+            <span class="text-[9px] font-medium text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
+                @L.DayOfWeekShort(date.DayOfWeek)
             </span>
-            <span class="text-lg font-semibold mt-0.5 tabular-nums @(day.IsSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-zinc-300")">
-                @day.Number
+            <span class="text-base font-semibold tabular-nums @(isSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-zinc-200")">
+                @date.Day
             </span>
-            @if (day.HasReplacements)
+            @if (hasReplacements)
             {
-                <span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                <span class="absolute top-1 right-1.5 w-1 h-1 rounded-full bg-amber-500"></span>
             }
-            @if (day.IsSelected)
+            @if (isToday && !isSelected)
             {
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-blue-500"></span>
+                <span class="absolute top-1 right-1.5 w-1 h-1 rounded-full bg-emerald-500"></span>
+            }
+            @if (isSelected)
+            {
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-blue-500"></span>
             }
         </button>
     }
 </div>
 
 @code {
-    private record DayInfo(string Short, int Number, bool IsSelected, bool HasReplacements);
+    [Parameter] public EventCallback<DateOnly> OnDayClick { get; set; }
+    [Parameter] public DateOnly SelectedDate { get; set; }
 
-    private List<DayInfo> Days { get; } = new()
+    private DateOnly Today { get; } = new(2025, 10, 14);
+
+    private List<DateOnly> Days { get; } = BuildWeek();
+
+    private static List<DateOnly> BuildWeek()
     {
-        new("Пн", 13, false, false),
-        new("Вт", 14, true,  true),
-        new("Ср", 15, false, false),
-        new("Чт", 16, false, true),
-        new("Пт", 17, false, false),
-        new("Сб", 18, false, false),
-        new("Вс", 19, false, false),
-    };
+        var monday = new DateOnly(2025, 10, 13);
+        return Enumerable.Range(0, 7).Select(i => monday.AddDays(i)).ToList();
+    }
 }

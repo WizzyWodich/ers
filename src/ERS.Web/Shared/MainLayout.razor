@@ -1,24 +1,25 @@
+@inherits LayoutComponentBase
 @implements IDisposable
 @inject Localizer L
 
-@inherits LayoutComponentBase
+<div @key="L.Current"
+     class="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 transition-colors duration-300 flex flex-col">
 
-<div @key="L.Current" class="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 transition-colors duration-300">
-    <header class="sticky top-0 z-20 backdrop-blur-lg bg-white/80 dark:bg-zinc-950/80 border-b border-slate-200/70 dark:border-zinc-900">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 px-3 sm:px-6 h-14">
-            <div class="flex items-center gap-2.5 min-w-0">
-                <div class="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-4 h-4 text-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                    </svg>
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md
+                   border-b border-slate-200/70 dark:border-zinc-900/70 transition-colors">
+        <div class="max-w-full md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-8 h-14 lg:h-16">
+
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 lg:w-9 lg:h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                    <CalendarDaysIcon class="w-4 h-4 lg:w-5 lg:h-5 text-white" />
                 </div>
-                <div class="min-w-0">
-                    <h1 class="text-sm font-semibold leading-tight tracking-tight">ERS</h1>
-                    <p class="text-[10px] text-slate-500 dark:text-zinc-500 leading-tight">Расписание</p>
+                <div>
+                    <h1 class="text-sm lg:text-base font-semibold leading-tight">@L["layout.brand"]</h1>
+                    <p class="text-[10px] lg:text-xs text-slate-500 dark:text-zinc-500 leading-tight">@L["layout.brandSubtitle"]</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1 lg:gap-2">
                 <LanguageSwitcher />
                 <ThemeToggle />
                 <ProfileMenu />
@@ -26,24 +27,24 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24">
+    <main class="flex-1 w-full max-w-full md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-4 lg:px-8 py-4 lg:py-8 pb-24">
         @Body
     </main>
 </div>
 
-@code{
+@code {
     protected override void OnInitialized()
-{
-    L.OnChange += OnLanguageChanged;
-}
+    {
+        L.OnChange += OnLanguageChanged;
+    }
 
-private void OnLanguageChanged()
-{
-    InvokeAsync(StateHasChanged);
-}
+    private void OnLanguageChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
 
-public void Dispose()
-{
-    L.OnChange -= OnLanguageChanged;
-}
+    public void Dispose()
+    {
+        L.OnChange -= OnLanguageChanged;
+    }
 }

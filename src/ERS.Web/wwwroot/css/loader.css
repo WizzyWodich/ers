@@ -1,0 +1,68 @@
+#ers-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    background: #F5F2EB;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.dark #ers-loader {
+    background: #09090b;
+}
+
+#ers-loader.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ers-loader-logo {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    padding-left: 0.4em;
+    color: #57534E;
+    animation: ers-pulse 1.8s ease-in-out infinite;
+}
+
+html.dark .ers-loader-logo {
+    color: #A8A29E;
+}
+
+@keyframes ers-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.ers-loader-dots {
+    display: flex;
+    gap: 7px;
+}
+
+.ers-loader-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    animation: ers-dot 1.4s ease-in-out infinite;
+}
+
+.ers-loader-dots span:nth-child(2) { 
+    animation-delay: 0.15s; 
+    background: #ea580c;
+}
+
+.ers-loader-dots span:nth-child(3) { 
+    animation-delay: 0.3s; 
+    background: #dc2626;
+}
+
+@keyframes ers-dot {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-5px); }
+}

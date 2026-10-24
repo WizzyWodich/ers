@@ -1,34 +1,35 @@
+@inject Localizer L
+
 <div>
-    @* Заголовок с месяцем и стрелками *@
     <div class="flex items-center justify-between px-3 py-2 border-b border-slate-200 dark:border-zinc-800">
-        <button class="w-7 h-7 rounded-lg text-slate-400 dark:text-zinc-500
-                       hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100
+        <button title="@L["calendar.prevMonth"]"
+                class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
+                       hover:bg-slate-100 dark:hover:bg-zinc-800
+                       hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-            </svg>
+            <ChevronLeftIcon class="w-3.5 h-3.5" />
         </button>
-        <span class="text-sm font-semibold">Октябрь 2025</span>
-        <button class="w-7 h-7 rounded-lg text-slate-400 dark:text-zinc-500
-                       hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-zinc-100
+        <span class="text-sm font-semibold capitalize">
+            @L.MonthName(CurrentMonth.Month) @CurrentMonth.Year
+        </span>
+        <button title="@L["calendar.nextMonth"]"
+                class="w-7 h-7 rounded-lg text-slate-500 dark:text-zinc-500
+                       hover:bg-slate-100 dark:hover:bg-zinc-800
+                       hover:text-slate-900 dark:hover:text-zinc-100
                        flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <ChevronRightIcon class="w-3.5 h-3.5" />
         </button>
     </div>
 
-    @* Дни недели *@
     <div class="grid grid-cols-7 bg-slate-50/60 dark:bg-zinc-900/60 border-b border-slate-200 dark:border-zinc-800">
-        @foreach (var d in Weekdays)
+        @foreach (var d in WeekOrder)
         {
             <div class="py-1.5 text-center text-[10px] font-semibold text-slate-500 dark:text-zinc-500 uppercase tracking-wider">
-                @d
+                @L.DayOfWeekShort(d)
             </div>
         }
     </div>
 
-    @* Сетка чисел *@
     <div class="grid grid-cols-7 gap-0.5 p-1.5">
         @foreach (var cell in Cells)
         {
@@ -38,19 +39,24 @@
             }
             else
             {
-                <button class="relative aspect-square rounded-lg text-sm font-medium
+                var isSelected = cell.Date == SelectedDate;
+                var isToday = cell.Date == Today;
+                var hasReplacements = cell.Date.Day == 14 || cell.Date.Day == 16;
+
+                <button @onclick="() => OnDayClick.InvokeAsync(cell.Date)"
+                        class="relative aspect-square rounded-lg text-sm font-medium
                                flex items-center justify-center tabular-nums
                                transition-all duration-150
-                               @(cell.IsSelected
+                               @(isSelected
                                    ? "bg-blue-500 text-white shadow-md shadow-blue-500/30"
                                    : "text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800")">
                     @cell.DayNumber
 
-                    @if (cell.HasReplacements && !cell.IsSelected)
+                    @if (hasReplacements && !isSelected)
                     {
                         <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500"></span>
                     }
-                    @if (cell.IsToday && !cell.IsSelected)
+                    @if (isToday && !isSelected)
                     {
                         <span class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     }
@@ -61,30 +67,39 @@
 </div>
 
 @code {
-    private record Cell(int DayNumber, bool IsSelected, bool IsToday, bool HasReplacements);
+    [Parameter] public EventCallback<DateOnly> OnDayClick { get; set; }
+    [Parameter] public DateOnly SelectedDate { get; set; }
 
-    private string[] Weekdays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
+    private DateOnly Today { get; } = new(2025, 10, 14);
+
+    private sealed record Cell(DateOnly Date, int DayNumber);
+
+    private static readonly DayOfWeek[] WeekOrder =
+    {
+        DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday,
+        DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday
+    };
+
+    private DateOnly CurrentMonth { get; } = new(2025, 10, 1);
 
     private List<Cell> Cells { get; } = BuildOctober2025();
 
     private static List<Cell> BuildOctober2025()
     {
         var result = new List<Cell>();
+        var empty = new Cell(default, 0);
 
-        result.Add(new Cell(0, false, false, false));
-        result.Add(new Cell(0, false, false, false));
+        result.Add(empty);
+        result.Add(empty);
 
         for (int day = 1; day <= 31; day++)
         {
-            var isSelected = day == 14;
-            var isToday = day == 14;
-            var hasReplacements = day == 14 || day == 16;
-            result.Add(new Cell(day, isSelected, isToday, hasReplacements));
+            result.Add(new Cell(new DateOnly(2025, 10, day), day));
         }
 
         while (result.Count < 35)
         {
-            result.Add(new Cell(0, false, false, false));
+            result.Add(empty);
         }
 
         return result;
