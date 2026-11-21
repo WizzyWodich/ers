@@ -7,6 +7,9 @@ HELP.md
 
 # dotenv files
 .env
+.env.local
+*.env
+!.env.example
 
 # User-specific files
 *.rsuser
