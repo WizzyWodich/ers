@@ -5,10 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder
     .AddApplicationServices()
     .AddDatabase()
-    .AddDependencyInjection();
+    .AddDependencyInjection()
+    .AddCors();
 
 var app = builder.Build();
 
-await app.UseApplicationMiddleware();
-
-await app.RunAsync();
+app.UseCors();
+await app.UseApplicationMiddleware(); 
+await app.RunAsync(); 

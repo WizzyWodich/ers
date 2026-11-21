@@ -46,4 +46,19 @@ public static class BuilderExtensions
 
         return builder;
     }
+
+    public static WebApplicationBuilder AddCors(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.WithOrigins("http://localhost:5219", "https://localhost:5219") 
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
+        return builder;
+    }
 }

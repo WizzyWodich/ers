@@ -20,9 +20,7 @@ public static class ApplicationExtensions
         }
 
         app.UseHttpsRedirection();
-
         app.MapEndpoints();
-
-        await app.RunAsync();
+        
     }
 }

@@ -1,0 +1,56 @@
+@inject SystemHealthService HealthService
+
+@if (isChecking)
+{
+    <div class="fixed inset-0 z-[999] bg-slate-50 dark:bg-zinc-950 flex items-center justify-center">
+        <div class="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+    </div>
+}
+else if (hasError)
+{
+    <div class="fixed inset-0 z-[999] bg-slate-50 dark:bg-zinc-950 flex items-center justify-center p-4">
+        <div class="max-w-md w-full bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 text-center border border-red-200 dark:border-red-900/30">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-6">
+                <ExclamationTriangleIcon class="w-8 h-8 text-red-600 dark:text-red-400" />
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-zinc-100 mb-2">Ошибка подключения</h2>
+            <p class="text-sm text-slate-500 dark:text-zinc-400 mb-6">@errorMessage</p>
+            <button @onclick="CheckHealth" class="w-full py-2.5 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-medium hover:opacity-90">
+                Попробовать снова
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    private bool isChecking = true;
+    private bool hasError = false;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckHealth();
+    }
+
+    private async Task CheckHealth()
+    {
+        isChecking = true;
+        hasError = false;
+        StateHasChanged();
+
+        var result = await HealthService.CheckHealthAsync();
+
+        if (!result.IsApiAlive)
+        {
+            hasError = true;
+            errorMessage = "Сервер API недоступен. Проверьте, запущен ли бэкенд.";
+        }
+        else if (!result.IsDbConnected)
+        {
+            hasError = true;
+            errorMessage = "База данных недоступна. Проверьте соединение с PostgreSQL.";
+        }
+        
+        isChecking = false;
+    }
+}
